@@ -1,0 +1,192 @@
+/* Custom styles */
+.headerbar{
+	background: #e6e6e6;
+}
+
+.profiledetails{
+	text-align: left;
+    padding: 1.5% 2% 1% 4%;
+    font-family: sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2px;
+}
+
+.timer{
+	text-align: right;
+    padding-top: 3%;
+    font-size: 22px;
+    line-height: 18px;
+}
+
+.headerbuttons{
+	padding-top: 3%;
+
+}
+
+.headerbuttons button{
+	background-color: #322561;
+	border-color: #322561;
+}
+
+
+/* sidebar */
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  position: relative;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 1% 1% 4% 12%;
+  font-size: 14px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  color: #322561;
+  font-weight: 900;
+}
+
+.sidebar a:hover:not(.active) {
+  color: black;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+.navcategory{
+	color: #d8d8d8;
+	display: block;
+  	padding: 1% 1% 4% 12%;
+  	font-size: 14px;
+  	font-weight: 600;
+  	text-decoration: none;
+}
+
+
+/* sidebar end */
+
+.content {
+    margin-top: 150px;
+    background-color: #ffffff;
+    min-height: 500px;
+}
+
+.sidebar-outer {
+    margin-top: 150px;
+    position: relative;
+}
+.fixed {
+    position: fixed;
+}
+
+
+.addicon{
+    width: 18px;
+    height: 18px;
+    margin-top: -2px;
+}
+
+/* providers */
+
+.name{
+  font-size: 21px;
+    font-weight: 300;
+    color: #505050;
+    width: fit-content;
+}
+.ccm{
+    color: white;
+    background-color: #ff0076;
+    padding: 4px 6px 4px 6px;
+    border-radius: 10px;
+    font-size: 8px;
+    margin-top: 5px;
+    margin-left: 8px;
+    float: right;
+}
+
+.physiciantype{
+  font-size: 10px;
+  margin-top: 0.8%;
+}
+
+.tabhead{
+    font-size: 10px;
+}
+
+.datafields{
+  font-size: 14px;
+}
+
+.providerinfo{
+  margin-top: 4%;
+}
+
+.custom-modal-header{
+  border-bottom: 0;
+  padding-left: 35%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  font-family: sans-serif;
+  color: #585858;
+  font-weight: 100 !important;
+
+}
+
+.custom-modal-close{
+  padding: 0.2rem 0.4rem !important;
+    margin: -3.8rem -2.2rem -1rem auto !important;
+    background-color: white !important;
+    opacity: 1 !important;
+    border-radius: 50% !important;
+    color: black !important;
+}
+
+.textfield{
+  padding: 1% 5% 2% 5%;
+}
+
+.textbox{
+  width: inherit;
+  border-radius: 3px;
+  border: solid #e6e5e5;
+  background-color: #eaeaea;
+}
+
+.formfields{
+  padding: 1% 5% 0% 5%;;
+  font-size: 11px !important;
+  color: #585858;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(./images/calendar.png) no-repeat;
+    width: 20px;
+    height: 23px;
+    border-width: thin;
+}
