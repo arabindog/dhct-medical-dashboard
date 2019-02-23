@@ -3,27 +3,27 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { diplayPageView } from "../action/actions";
 
-class AddProviderModal extends React.Component {
+class EditProviderModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
+            firstName: 'AB',
             firstNameError: false,
             firstNameErrorText: '',
-            lastName: '',
-            practiceName: '',
-            phone: '',
+            lastName: 'GH',
+            practiceName: 'BYUT',
+            phone: '12345',
             phoneError: false,
             phoneErrorText: '',
-            fax: '',
+            fax: '67890',
             faxError: false,
             faxErrorText: '',
-            email: '',
+            email: 'a@a.com',
             PhysicianType: 'endocrinology',
             PhysicianTypeError: false,
             PhysicianTypeErrorText: '',
-            lastDateVisited: '',
-            nextVisitDate: ''
+            lastDateVisited: '2019-02-02',
+            nextVisitDate: '2019-02-28'
         }
         this.closeModal = this.closeModal.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
@@ -120,7 +120,7 @@ class AddProviderModal extends React.Component {
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header custom-modal-header">
-                                <div className="modal-title" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>ADD A PROVIDER</div>
+                                <div className="modal-title" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>EDIT PROVIDER</div>
                                 <button type="button" className="close custom-modal-close" data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -206,4 +206,4 @@ const mapDispatchToProps = dispatch =>
         diplayPageView
     }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProviderModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProviderModal);

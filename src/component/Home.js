@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import AddProviderModal from './addProviderModal'
 import LandingPage from './landingPage'
 import DeleteProviderModal from './deleteProviderModal'
-import { ADD_PROVIDER_MODAL, DELETE_PROVIDER_MODAL } from '../action/actions'
+import EditProviderModal from './editProviderModal'
+import { ADD_PROVIDER_MODAL, DELETE_PROVIDER_MODAL, EDIT_PROVIDER_MODAL } from '../action/actions'
 
 class Home extends React.Component {
   constructor(props) {
@@ -33,6 +34,10 @@ class Home extends React.Component {
         {
           this.props.data === DELETE_PROVIDER_MODAL &&
           <DeleteProviderModal />
+        }
+        {
+          this.props.data === EDIT_PROVIDER_MODAL &&
+          <EditProviderModal />
         }
       </div>
     )

@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   diplayPageView,
   ADD_PROVIDER_MODAL,
-  DELETE_PROVIDER_MODAL
+  DELETE_PROVIDER_MODAL,
+  EDIT_PROVIDER_MODAL
 } from "../action/actions";
 
 class LandingPage extends React.Component {
@@ -24,6 +25,7 @@ class LandingPage extends React.Component {
     this.editProviderClick = this.editProviderClick.bind(this);
   }
   editProviderClick() {
+    this.props.diplayPageView(EDIT_PROVIDER_MODAL)
     this.setState({ shw: false });
   }
   deleteProviderClick() {
@@ -145,7 +147,7 @@ class LandingPage extends React.Component {
               <div className="row" style={{ marginTop: '5%' }}>
                 <div className="col-md-8">
                   <div className="name">
-                    Mike Burroughs
+                    Joseph Flowers
                         </div>
                   <div className="physiciantype">Physician Type: Psychriatrist</div>
                 </div>
@@ -185,6 +187,53 @@ class LandingPage extends React.Component {
                   <div className="datafields">March 28, 2019</div>
                 </div>
               </div>
+
+
+              {/* <div className="row" style={{ marginTop: '5%' }}>
+                <div className="col-md-8">
+                  <div className="name">
+                    Mike Burroughs
+                        </div>
+                  <div className="physiciantype">Physician Type: Psychriatrist</div>
+                </div>
+                <div className="col-md-3">
+                  <div className={`${this.state.btn} ${shw}`} >
+                    <button id="flyout-example" type="button" onClick={this.actionClick} className="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ padding: '2px 30px', backgroundColor: '#ff0076' }}>Actions</button>
+                    <div className={`${this.state.drp} ${shw}`}>
+                      <a className="dropdown-item" href="#" onClick={this.editProviderClick}>Edit</a>
+                      <div className="dropdown-divider"></div>
+                      <a className="dropdown-item" data-toggle="modal" data-target="#deleteRecord" href="#" onClick={this.deleteProviderClick}>Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row providerinfo">
+                <div className="col-md-3">
+                  <div className="tabhead">Phone</div>
+                  <div className="datafields">(708) 555-5555</div>
+                </div>
+                <div className="col-md-3">
+                  <div className="tabhead">Fax</div>
+                  <div className="datafields">(708) 555-5555</div>
+                </div>
+                <div className="col-md-3">
+                  <div className="tabhead">Email</div>
+                  <div className="datafields">mindlounge@yahoo.com</div>
+                </div>
+              </div>
+              <div className="row providerinfo">
+                <div className="col-md-4">
+                  <div className="tabhead">Appointment date of last visit</div>
+                  <div className="datafields">November 1, 2018</div>
+                </div>
+                <div className="col-md-4">
+                  <div className="tabhead">Appointment date of next visit</div>
+                  <div className="datafields">March 28, 2019</div>
+                </div>
+              </div> */}
+
+
             </div>
           </div>
         </div>
