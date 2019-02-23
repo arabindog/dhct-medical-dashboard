@@ -44,22 +44,18 @@ class LandingPage extends React.Component {
     this.setState({ shw: !this.state.shw });
   }
   addProviderClick() {
-    console.log('add providers button clicked')
     this.setState({ show: true });
     this.props.diplayPageView(ADD_PROVIDER_MODAL)
   };
   saveClick() {
-    console.log('save button clicked')
   }
   saveAndCloseClick() {
-    console.log('save n close button clicked')
   }
   render() {
     let shw = ''
     if (this.state.shw === true) {
       shw = 'show'
     }
-    console.log(this.state)
     return (
       <div>
         <div className="container-fluid">

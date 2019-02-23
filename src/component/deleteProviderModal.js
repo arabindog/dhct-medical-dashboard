@@ -16,11 +16,9 @@ class DeleteProviderModal extends React.Component {
         this.props.diplayPageView('')
     }
     confirmDeleteProvider() {
-        console.log('clicked for delete confirmation button->')
         this.props.diplayPageView('')
     }
     render() {
-        console.log('man u')
         return (
             <div>
                 <div className="modal fade show" id="deleteRecord" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" aria-modal="true" style={{ display: 'block' }}>
