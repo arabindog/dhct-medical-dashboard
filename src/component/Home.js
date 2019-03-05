@@ -11,10 +11,13 @@ import { ADD_PROVIDER_MODAL, DELETE_PROVIDER_MODAL, EDIT_PROVIDER_MODAL } from '
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    displayPage: ''
+    this.state
+    this.state = {
+      displayPage: ''
+    }
   }
   componentWillMount() {
-    if (Object.keys(this.props.data).length === 0) {
+    if (Object.keys(this.props.display_view_data).length === 0) {
       this.setState({
         displayPage: 'landing'
       })
@@ -28,15 +31,15 @@ class Home extends React.Component {
           <LandingPage />
         }
         {
-          this.props.data === ADD_PROVIDER_MODAL &&
+          this.props.display_view_data === ADD_PROVIDER_MODAL &&
           <AddProviderModal />
         }
         {
-          this.props.data === DELETE_PROVIDER_MODAL &&
+          this.props.display_view_data === DELETE_PROVIDER_MODAL &&
           <DeleteProviderModal />
         }
         {
-          this.props.data === EDIT_PROVIDER_MODAL &&
+          this.props.display_view_data === EDIT_PROVIDER_MODAL &&
           <EditProviderModal />
         }
       </div>
@@ -45,7 +48,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.data
+  display_view_data: state.fetchReducer.display_view_data,
 });
 
 const mapDispatchToProps = dispatch =>

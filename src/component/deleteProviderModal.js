@@ -1,7 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { diplayPageView } from "../action/actions";
+import { diplayPageView, initiateDeleteProvider, initiateFetchProvider, initiateDeleteProviderReset } from "../action/actions";
 
 class DeleteProviderModal extends React.Component {
     constructor(props) {
@@ -9,14 +9,24 @@ class DeleteProviderModal extends React.Component {
         this.state = {
         }
         this.closeModal = this.closeModal.bind(this);
-        this.confirmDeleteProvider = this.confirmDeleteProvider.bind(this)
-            ;
+        this.confirmDeleteProvider = this.confirmDeleteProvider.bind(this);
     }
     closeModal() {
         this.props.diplayPageView('')
     }
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.initiate_delete_provider && nextProps.initiate_delete_provider_complete && !nextProps.initiate_delete_provider_error) {
+            this.props.initiateFetchProvider();
+            this.props.diplayPageView('');
+            this.props.initiateDeleteProviderReset();
+        }
+    }
     confirmDeleteProvider() {
-        this.props.diplayPageView('')
+        let body = {
+            provider_npi_dhct_number: this.props.update_provider_id.provider_npi_dhct_number,
+            ccm_patient_account_id: this.props.fetch_provider_data.ccm_patient_account_id
+        }
+        this.props.initiateDeleteProvider(body)
     }
     render() {
         return (
@@ -46,12 +56,21 @@ class DeleteProviderModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    data: state.data
+    update_provider_id: state.addProviderReducer.update_provider_id,
+    fetch_provider_data: state.fetchReducer.fetch_provider_data,
+    initiate_delete_provider: state.deleteProviderReducer.initiate_delete_provider,
+    initiate_delete_provider_complete: state.deleteProviderReducer.initiate_delete_provider_complete,
+    initiate_delete_provider_error: state.deleteProviderReducer.initiate_delete_provider_error,
+    delete_provider_data: state.deleteProviderReducer.delete_provider_data,
+    delete_provider_error_data: state.deleteProviderReducer.delete_provider_error_data
 });
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        diplayPageView
+        diplayPageView,
+        initiateDeleteProvider,
+        initiateFetchProvider,
+        initiateDeleteProviderReset
     }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteProviderModal);

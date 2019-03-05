@@ -7,23 +7,23 @@ class EditProviderModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: 'AB',
+            firstName: '',
             firstNameError: false,
             firstNameErrorText: '',
-            lastName: 'GH',
-            practiceName: 'BYUT',
-            phone: '12345',
+            lastName: '',
+            practiceName: '',
+            phone: '',
             phoneError: false,
             phoneErrorText: '',
-            fax: '67890',
+            fax: '',
             faxError: false,
             faxErrorText: '',
-            email: 'a@a.com',
-            PhysicianType: 'endocrinology',
+            email: '',
+            PhysicianType: '',
             PhysicianTypeError: false,
             PhysicianTypeErrorText: '',
-            lastDateVisited: '2019-02-02',
-            nextVisitDate: '2019-02-28'
+            lastDateVisited: '',
+            nextVisitDate: ''
         }
         this.closeModal = this.closeModal.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
@@ -39,6 +39,17 @@ class EditProviderModal extends React.Component {
         this.clickFirstName = this.clickFirstName.bind(this);
         this.clickPhone = this.clickPhone.bind(this);
         this.clickPhysicianType = this.clickPhysicianType.bind(this);
+        this.phoneFormat = this.phoneFormat.bind(this);
+    }
+    phoneFormat() {
+        //const x = this.props.update_provider_id.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        const y = this.props.update_provider_id.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        //let phone = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
+        let fax = !y[2] ? y[1] : `(${y[1]}) ${y[2]}${y[3] ? `-${y[3]}` : ''}`;
+        this.setState({
+            fax: fax,
+            //    phone: phone
+        })
     }
     clickFax() {
         this.setState({
@@ -70,6 +81,8 @@ class EditProviderModal extends React.Component {
         })
     }
     changeFax(event) {
+        const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
         this.setState({
             fax: event.target.value
         })
@@ -95,6 +108,8 @@ class EditProviderModal extends React.Component {
         })
     }
     changePhone(event) {
+        const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
         this.setState({
             phone: event.target.value
         })
@@ -112,8 +127,21 @@ class EditProviderModal extends React.Component {
     closeModal() {
         this.props.diplayPageView('')
     }
+    componentWillMount() {
+        if (this.props.update_provider_id) {
+            this.setState({
+                firstName: this.props.update_provider_id.dhct_provider_first_name,
+                lastName: this.props.update_provider_id.dhct_provider_last_name,
+                phone: this.props.update_provider_id.dhct_provider_mobile_number,
+                email: this.props.update_provider_id.dhct_provider_email,
+                fax: this.props.update_provider_id.dhct_provider_fax_number,
+                nextVisitDate: this.props.update_provider_id.dhct_patient_approximate_date_of_next_provider_visit,
+                lastDateVisited: this.props.update_provider_id.dhct_patient_approximate_date_of_last_provider_visit
+            })
+        }
+        this.phoneFormat();
+    }
     render() {
-        console.log(this.state)
         return (
             <div>
                 <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', overflowY: 'scroll' }}>
@@ -165,9 +193,9 @@ class EditProviderModal extends React.Component {
                                     <div className="col-md-3" style={{ textAlign: 'right' }}>* REQUIRED</div>
                                 </div>
                                 <div className="row textfield">
-                                    <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} /></div>
+                                    <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='14' /></div>
 
-                                    <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} /></div>
+                                    <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='14' /></div>
                                 </div>
                                 <div className="row formfields">
                                     <div className="col-md-4 tabhead">Email</div>
@@ -198,7 +226,9 @@ class EditProviderModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    data: state.data
+    //data: state.data
+    update_provider_id: state.addProviderReducer.update_provider_id,
+    fetch_provider_data: state.fetchReducer.fetch_provider_data,
 });
 
 const mapDispatchToProps = dispatch =>
