@@ -19,9 +19,9 @@ class EditProviderModal extends React.Component {
             faxError: false,
             faxErrorText: '',
             email: '',
-            PhysicianType: '',
-            PhysicianTypeError: false,
-            PhysicianTypeErrorText: '',
+            physicianType: '',
+            physicianTypeError: false,
+            physicianTypeErrorText: '',
             lastDateVisited: '',
             nextVisitDate: ''
         }
@@ -33,53 +33,60 @@ class EditProviderModal extends React.Component {
         this.changeLastVisitedDate = this.changeLastVisitedDate.bind(this);
         this.changeNextVisitDate = this.changeNextVisitDate.bind(this);
         this.changePhone = this.changePhone.bind(this);
-        this.changePhysicianType = this.changePhysicianType.bind(this);
+        this.changephysicianType = this.changephysicianType.bind(this);
         this.changePracticeName = this.changePracticeName.bind(this);
         this.clickFax = this.clickFax.bind(this);
         this.clickFirstName = this.clickFirstName.bind(this);
         this.clickPhone = this.clickPhone.bind(this);
-        this.clickPhysicianType = this.clickPhysicianType.bind(this);
+        this.clickphysicianType = this.clickphysicianType.bind(this);
         this.phoneFormat = this.phoneFormat.bind(this);
     }
+
     phoneFormat() {
-        //const x = this.props.update_provider_id.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        const x = this.props.update_provider_id.dhct_provider_phone_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         const y = this.props.update_provider_id.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        //let phone = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
+        let phone = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
         let fax = !y[2] ? y[1] : `(${y[1]}) ${y[2]}${y[3] ? `-${y[3]}` : ''}`;
         this.setState({
             fax: fax,
-            //    phone: phone
+            phone: phone
         })
     }
+
     clickFax() {
         this.setState({
             faxError: false,
             faxErrorText: ''
         })
     }
+
     clickFirstName() {
         this.setState({
             firstNameError: false,
             firstNameErrorText: ''
         })
     }
+
     clickPhone() {
         this.setState({
             phoneError: false,
             phoneErrorText: ''
         })
     }
-    clickPhysicianType() {
+
+    clickphysicianType() {
         this.setState({
-            PhysicianTypeError: false,
-            PhysicianTypeErrorText: ''
+            physicianTypeError: false,
+            physicianTypeErrorText: ''
         })
     }
+
     changeEmail(event) {
         this.setState({
             email: event.target.value
         })
     }
+
     changeFax(event) {
         const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
@@ -87,26 +94,31 @@ class EditProviderModal extends React.Component {
             fax: event.target.value
         })
     }
+
     changeFirstName(event) {
         this.setState({
             firstName: event.target.value
         })
     }
+
     changeLastName(event) {
         this.setState({
             lastName: event.target.value
         })
     }
+
     changeLastVisitedDate(event) {
         this.setState({
             lastDateVisited: event.target.value
         })
     }
+
     changeNextVisitDate(event) {
         this.setState({
             nextVisitDate: event.target.value
         })
     }
+
     changePhone(event) {
         const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
@@ -114,25 +126,29 @@ class EditProviderModal extends React.Component {
             phone: event.target.value
         })
     }
-    changePhysicianType(event) {
+
+    changephysicianType(event) {
         this.setState({
-            PhysicianType: event.target.value
+            physicianType: event.target.value
         })
     }
+
     changePracticeName(event) {
         this.setState({
             practiceNames: event.target.value
         })
     }
+
     closeModal() {
         this.props.diplayPageView('')
     }
+
     componentWillMount() {
         if (this.props.update_provider_id) {
             this.setState({
                 firstName: this.props.update_provider_id.dhct_provider_first_name,
                 lastName: this.props.update_provider_id.dhct_provider_last_name,
-                phone: this.props.update_provider_id.dhct_provider_mobile_number,
+                phone: this.props.update_provider_id.dhct_provider_phone_number,
                 email: this.props.update_provider_id.dhct_provider_email,
                 fax: this.props.update_provider_id.dhct_provider_fax_number,
                 nextVisitDate: this.props.update_provider_id.dhct_patient_approximate_date_of_next_provider_visit,
@@ -141,10 +157,11 @@ class EditProviderModal extends React.Component {
         }
         this.phoneFormat();
     }
+
     render() {
         return (
             <div>
-                <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', overflowY: 'scroll' }}>
+                <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', overflowY: 'scroll', backgroundColor: '#000000b5' }}>
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header custom-modal-header">
@@ -160,6 +177,10 @@ class EditProviderModal extends React.Component {
                                 </div>
                                 <div className="row textfield">
                                     <div className="col-md-12"><input className="textbox" type="text" name="firstName" onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName} /></div>
+                                    {
+                                        this.state.firstNameError &&
+                                        <div className="col-md-4 tabhead" style={{ color: 'red' }}>{this.state.firstNameErrorText}</div>
+                                    }
                                 </div>
                                 <div className="row formfields">
                                     <div className="col-md-4 tabhead">Last Name</div>
@@ -179,12 +200,17 @@ class EditProviderModal extends React.Component {
                                 </div>
                                 <div className="row textfield" style={{ paddingBottom: '4%' }}>
                                     <div className="col-md-12">
-                                        <select className="textbox" style={{ fontSize: '12px', color: '#4e4e4e' }} onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.PhysicianType}>
+                                        <select id="physicianDropdownEdit" className="textbox" style={{ fontSize: '12px', color: '#4e4e4e' }} onChange={this.changephysicianType} onClick={this.clickphysicianType} value={this.state.physicianType}>
+                                            <option value="">Select Physician Type</option>
                                             <option value="endocrinology">Endocrinology</option>
                                             <option value="cardiology">Cardiology</option>
                                             <option value="opthalmology">Opthalmology</option>
                                         </select>
                                     </div>
+                                    {
+                                        this.state.physicianTypeError &&
+                                        <div className="col-md-3 tabhead" style={{ color: 'red' }}>this.state.physicianTypeErrorText</div>
+                                    }
                                 </div>
                                 <div className="row formfields">
                                     <div className="col-md-3 tabhead">Phone</div>
@@ -194,8 +220,23 @@ class EditProviderModal extends React.Component {
                                 </div>
                                 <div className="row textfield">
                                     <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='14' /></div>
-
                                     <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='14' /></div>
+                                </div>
+                                <div className="row formfields">
+                                    <div className="col-md-3 tabhead">
+                                        {
+                                            this.state.phoneError &&
+                                            <div style={{ color: 'red' }}>{this.state.phoneErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="col-md-3" style={{ textAlign: 'right' }}></div>
+                                    <div className="col-md-3 tabhead">
+                                        {
+                                            this.state.faxError &&
+                                            <div style={{ color: 'red' }}>{this.state.faxErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="col-md-3" style={{ textAlign: 'right' }}></div>
                                 </div>
                                 <div className="row formfields">
                                     <div className="col-md-4 tabhead">Email</div>
@@ -209,7 +250,6 @@ class EditProviderModal extends React.Component {
                                 </div>
                                 <div className="row textfield">
                                     <div className="col-md-6"><input className="textbox" type="date" name="lastvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} /></div>
-
                                     <div className="col-md-6"><input className="textbox" type="date" name="nextvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} /></div>
                                 </div>
                             </div>
@@ -226,9 +266,8 @@ class EditProviderModal extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    //data: state.data
     update_provider_id: state.addProviderReducer.update_provider_id,
-    fetch_provider_data: state.fetchReducer.fetch_provider_data,
+    fetch_provider_put_data: state.fetchReducer.fetch_provider_put_data,
 });
 
 const mapDispatchToProps = dispatch =>

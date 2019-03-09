@@ -25,12 +25,19 @@ class AddProviderModal extends React.Component {
             faxError: false,
             faxErrorText: '',
             email: '',
-            PhysicianType: 'endocrinology',
-            PhysicianTypeError: false,
-            PhysicianTypeErrorText: '',
+            physicianType: '',
+            physicianTypeError: false,
+            physicianTypeErrorText: '',
             lastDateVisited: '',
             nextVisitDate: '',
-            npi: ''
+            dateError: false,
+            dateErrorText: '',
+            emailError: false,
+            emailErrorText: '',
+            lastVisitedDateError: false,
+            lastVisitedDateErrorText: '',
+            nextVisitDateError: false,
+            nextVisitDateErrorText: '',
         }
         this.closeModal = this.closeModal.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
@@ -47,11 +54,23 @@ class AddProviderModal extends React.Component {
         this.clickPhone = this.clickPhone.bind(this);
         this.clickPhysicianType = this.clickPhysicianType.bind(this);
         this.saveClick = this.saveClick.bind(this);
-        this.changeNpi = this.changeNpi.bind(this);
+        this.lastDateVisitedClick = this.lastDateVisitedClick.bind(this);
+        this.nextVisitDateClick = this.nextVisitDateClick.bind(this);
     }
-    changeNpi(event) {
+    lastDateVisitedClick() {
         this.setState({
-            npi: event.target.value
+            dateError: false,
+            dateErrorText: '',
+            lastVisitedDateError: false,
+            lastVisitedDateErrorText: ''
+        })
+    }
+    nextVisitDateClick() {
+        this.setState({
+            dateError: false,
+            dateErrorText: '',
+            nextVisitDateError: false,
+            nextVisitDateErrorText: ''
         })
     }
     componentWillReceiveProps(nextProps) {
@@ -62,22 +81,80 @@ class AddProviderModal extends React.Component {
         }
     }
     saveClick() {
+        let validationStatus = true;
+        if (this.state.fax.length < 14) {
+            this.setState({
+                faxError: true,
+                faxErrorText: 'Fax should be 10 digit number.'
+            })
+            validationStatus = false
+        }
+        if (this.state.phone.length < 14) {
+            this.setState({
+                phoneError: true,
+                phoneErrorText: 'Phone should be 10 digit number.'
+            })
+            validationStatus = false
+        }
+        if (this.state.physicianType === '') {
+            this.setState({
+                physicianTypeError: true,
+                physicianTypeErrorText: 'Please select a Physician Type.'
+            })
+            validationStatus = false
+        }
+        if (this.state.firstName.trim() === '') {
+            this.setState({
+                firstNameError: true,
+                firstNameErrorText: 'First Name can not be blank.'
+            })
+            validationStatus = false
+        }
+        if (this.state.nextVisitDate < this.state.lastDateVisited) {
+            this.setState({
+                dateError: true,
+                dateErrorText: 'Next visit date can not be older than last visited date.'
+            })
+        }
+        if (this.state.nextVisitDate === this.state.lastDateVisited && this.state.nextVisitDate !== '' && this.state.lastDateVisited !== '') {
+            this.setState({
+                dateError: true,
+                dateErrorText: 'Next visit date can not be same with last visited date.'
+            })
+        }
+        if (this.state.lastDateVisited === '') {
+            this.setState({
+                lastVisitedDateError: true,
+                lastVisitedDateErrorText: 'Last date visited can not be blank.'
+            })
+            validationStatus = false
+        }
+        if (this.state.nextVisitDate === '') {
+            this.setState({
+                nextVisitDateError: true,
+                nextVisitDateErrorText: 'Next visit date can not be blank.'
+            })
+            validationStatus = false
+        }
         let body = {
-            provider_npi_ccm_number: this.props.fetch_provider_data.provider_npi_ccm_number,
-            ccm_patient_account_id: this.props.fetch_provider_data.ccm_patient_account_id,
-            dhct_provider_type: this.state.PhysicianType,
+            provider_npi_ccm_number: this.props.fetch_provider_put_data.data.provider_npi_ccm_number,
+            ccm_patient_account_id: this.props.fetch_provider_put_data.data.ccm_patient_account_id,
+            dhct_provider_type: this.state.physicianType,
             dhct_provider_practice_name: this.state.practiceName,
             dhct_provider_first_name: this.state.firstName,
             dhct_provider_last_name: this.state.lastName,
             dhct_provider_phone_number: this.state.phone.replace(/\D+/g, ""),
             dhct_provider_fax_number: this.state.fax.replace(/\D+/g, ""),
             dhct_provider_email: this.state.email,
-            emr_patient_account_id: this.props.fetch_provider_data.emr_patient_account_id,
-            provider_npi_dhct_number: this.state.npi,
+            emr_patient_account_id: this.props.fetch_provider_put_data.data.emr_patient_account_id,
+            provider_npi_dhct_number: (this.state.phone.replace(/\D+/g, "")).slice(0, 5),
             dhct_patient_approximate_date_of_last_provider_visit: this.state.lastDateVisited,
             dhct_patient_approximate_date_of_next_provider_visit: this.state.nextVisitDate
         }
-        this.props.initiatePostProvider(body);
+        console.log(body)
+        if (validationStatus) {
+            this.props.initiatePostProvider(body);
+        }
     }
     clickFax() {
         this.setState({
@@ -99,8 +176,7 @@ class AddProviderModal extends React.Component {
     }
     clickPhysicianType() {
         this.setState({
-            PhysicianTypeError: false,
-            PhysicianTypeErrorText: ''
+            physicianTypeError: false
         })
     }
     changeEmail(event) {
@@ -144,7 +220,7 @@ class AddProviderModal extends React.Component {
     }
     changePhysicianType(event) {
         this.setState({
-            PhysicianType: event.target.value
+            physicianType: event.target.value
         })
     }
     changePracticeName(event) {
@@ -174,6 +250,9 @@ class AddProviderModal extends React.Component {
                             </div>
                             <div className="row textfield">
                                 <div className="col-md-12"><input className="textbox" type="text" name="firstName" onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName} /></div>
+                                {this.state.firstNameError &&
+                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.firstNameErrorText}</div>
+                                }
                             </div>
                             <div className="row formfields">
                                 <div className="col-md-4 tabhead">Last Name</div>
@@ -193,12 +272,17 @@ class AddProviderModal extends React.Component {
                             </div>
                             <div className="row textfield" style={{ paddingBottom: '4%' }}>
                                 <div className="col-md-12">
-                                    <select className="textbox" style={{ fontSize: '12px', color: '#4e4e4e' }} onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.PhysicianType}>
+                                    <select id="physicianDropdownAdd" className="textbox" style={{ fontSize: '12px', color: '#4e4e4e' }} onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.physicianType}>
+                                        <option value="">Select Physician Type</option>
                                         <option value="endocrinology">Endocrinology</option>
                                         <option value="cardiology">Cardiology</option>
                                         <option value="opthalmology">Opthalmology</option>
                                     </select>
                                 </div>
+                                {
+                                    this.state.physicianTypeError &&
+                                    <div className="col-md-3 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.physicianTypeErrorText}</div>
+                                }
                             </div>
                             <div className="row formfields">
                                 <div className="col-md-3 tabhead">Phone</div>
@@ -207,32 +291,58 @@ class AddProviderModal extends React.Component {
                                 <div className="col-md-3" style={{ textAlign: 'right' }}>* REQUIRED</div>
                             </div>
                             <div className="row textfield">
-                                <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='14' /></div>
-
-                                <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='14' /></div>
+                                <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='15' /></div>
+                                <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='15' /></div>
                             </div>
                             <div className="row formfields">
-                                <div className="col-md-4 tabhead">provider_npi_dhct_number</div>
+                                <div className="col-md-3 tabhead">
+                                    {
+                                        this.state.phoneError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.phoneErrorText}</div>
+                                    }
+                                </div>
+                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
+                                <div className="col-md-3 tabhead">
+                                    {
+                                        this.state.faxError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.faxErrorText}</div>
+                                    }
+                                </div>
+                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
                             </div>
-                            <div className="row textfield">
-                                <div className="col-md-12"><input className="textbox" type="text" name="npi" onChange={this.changeNpi} value={this.state.npi} /></div>
-                            </div>
-
                             <div className="row formfields">
                                 <div className="col-md-4 tabhead">Email</div>
                             </div>
                             <div className="row textfield">
                                 <div className="col-md-12"><input className="textbox" type="text" name="email" onChange={this.changeEmail} value={this.state.email} /></div>
                             </div>
-
                             <div className="row formfields">
                                 <div className="col-md-6 tabhead">Approximate date last visited</div>
                                 <div className="col-md-6 tabhead">Approximate next visit date</div>
                             </div>
                             <div className="row textfield">
-                                <div className="col-md-6"><input className="textbox" type="date" name="lastvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} /></div>
-
-                                <div className="col-md-6"><input className="textbox" type="date" name="nextvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} /></div>
+                                <div className="col-md-6"><input className="textbox" type="date" name="lastvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} onClick={this.lastDateVisitedClick} /></div>
+                                <div className="col-md-6"><input className="textbox" type="date" name="nextvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} onClick={this.nextVisitDateClick} /></div>
+                                <div className="row formfields">
+                                    <div className="col-md-3 tabhead">
+                                        {
+                                            this.state.lastVisitedDateError &&
+                                            <div style={{ color: 'red', minWidth: '250px' }}>{this.state.lastVisitedDateErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="col-md-3" style={{ textAlign: 'right' }}></div>
+                                    <div className="col-md-3 tabhead">
+                                        {
+                                            this.state.nextVisitDateError &&
+                                            <div style={{ color: 'red', minWidth: '250px' }}>{this.state.nextVisitDateErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="col-md-3" style={{ textAlign: 'right' }}></div>
+                                </div>
+                                {
+                                    this.state.dateError &&
+                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.dateErrorText}</div>
+                                }
                             </div>
                         </div>
                         <div className="modal-footer" style={{ borderTop: '0', paddingRight: '7%' }}>
@@ -253,6 +363,8 @@ const mapStateToProps = state => ({
     post_provider_data: state.addProviderReducer.post_provider_data,
     post_provider_error_data: state.addProviderReducer.post_provider_error_data,
     fetch_provider_data: state.fetchReducer.fetch_provider_data,
+
+    fetch_provider_put_data: state.fetchReducer.fetch_provider_put_data,
 });
 
 const mapDispatchToProps = dispatch =>

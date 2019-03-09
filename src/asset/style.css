@@ -156,9 +156,57 @@
 
 }
 
-/*-custom select dropdown-*/
+.custom-modal-close{
+  padding: 0.2rem 0.4rem !important;
+    margin: -3.8rem -2.2rem -1rem auto !important;
+    background-color: white !important;
+    opacity: 1 !important;
+    border-radius: 50% !important;
+    color: black !important;
+}
 
-/*the container must be positioned relative:*/
+.textfield{
+  padding: 1% 5% 2% 5%;
+}
+
+.textbox{
+  width: inherit;
+  border-radius: 3px;
+  border: solid #e6e5e5;
+  background-color: #eaeaea;
+}
+
+.formfields{
+  padding: 1% 5% 0% 5%;;
+  font-size: 11px !important;
+  color: #585858;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(./images/calendar.png) no-repeat;
+    width: 20px;
+    height: 23px;
+    border-width: thin;
+}
+
+#physicianDropdownEdit option:first-child {
+  display: none;
+  }
+
+  #actiondropdown option:first-child {
+    display: none;
+    }
+
+    #physicianDropdownAdd option:first-child {
+      display: none;
+      }
+  
+
+
+  /*the container must be positioned relative:*/
 .custom-select-dropdown {
   position: relative;
   font-family: Arial;
@@ -221,39 +269,3 @@
 }
 
 /*-end of custom select dropdown-*/
-
-.custom-modal-close{
-  padding: 0.2rem 0.4rem !important;
-    margin: -3.8rem -2.2rem -1rem auto !important;
-    background-color: white !important;
-    opacity: 1 !important;
-    border-radius: 50% !important;
-    color: black !important;
-}
-
-.textfield{
-  padding: 1% 5% 2% 5%;
-}
-
-.textbox{
-  width: inherit;
-  border-radius: 3px;
-  border: solid #e6e5e5;
-  background-color: #eaeaea;
-}
-
-.formfields{
-  padding: 1% 5% 0% 5%;;
-  font-size: 11px !important;
-  color: #585858;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    color: rgba(0, 0, 0, 0);
-    opacity: 1;
-    display: block;
-    background: url(./images/calendar.png) no-repeat;
-    width: 20px;
-    height: 23px;
-    border-width: thin;
-}
