@@ -33,7 +33,6 @@ function* fetchProviderApiData() {
 }
 
 function* fetchProviderPutApiData(action) {
-  console.log('in put->' + action.body)
   try {
     const fetchProviderPutCompletedata = yield call(axios.put, 'https://kgoz305mdk.execute-api.us-east-1.amazonaws.com/dev/getccmpatientproviders', action.body);
     if (fetchProviderPutCompletedata) {
@@ -59,7 +58,7 @@ function* fetchDhctApiData(action) {
 
 function* postProviderApiData(action) {
   try {
-    const postProviderCompletedata = yield call(axios.post, 'https://bxqbp336z7.execute-api.us-east-1.amazonaws.com/test/patientprovider', action.body);
+    const postProviderCompletedata = yield call(axios.post, 'https://4s3r10nrbk.execute-api.us-east-1.amazonaws.com/Test/postapi', action.body);
     yield put(initiatePostProviderComplete(postProviderCompletedata));
   }
   catch (errorData) {
@@ -71,7 +70,7 @@ function* postProviderApiData(action) {
 function* deleteProviderApiData(action) {
   try {
     const deleteProviderCompleteData = yield call(
-      axios.delete, 'https://bxqbp336z7.execute-api.us-east-1.amazonaws.com/test/patientprovider', {
+      axios.delete, 'https://st0ft4jtjj.execute-api.us-east-1.amazonaws.com/Test/deleteapi', {
         data: {
           provider_npi_dhct_number: action.body.provider_npi_dhct_number,
           ccm_patient_account_id: action.body.ccm_patient_account_id

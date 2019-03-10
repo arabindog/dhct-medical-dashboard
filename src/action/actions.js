@@ -26,6 +26,11 @@ export const INITIATE_DELETE_PROVIDER_COMPLETE = "INITIATE_DELETE_PROVIDER_COMPL
 export const INITIATE_DELETE_PROVIDER_ERROR = "INITIATE_DELETE_PROVIDER_DATA_ERROR";
 export const INITIATE_DELETE_PROVIDER_DATA_RESET = "INITIATE_DELETE_PROVIDER_DATA_RESET";
 
+export const INITIATE_EDIT_PROVIDER = "INITIATE_EDIT_PROVIDER";
+export const INITIATE_EDIT_PROVIDER_COMPLETE = "INITIATE_EDIT_PROVIDER_COMPLETE";
+export const INITIATE_EDIT_PROVIDER_ERROR = "INITIATE_EDIT_PROVIDER_DATA_ERROR";
+export const INITIATE_EDIT_PROVIDER_DATA_RESET = "INITIATE_EDIT_PROVIDER_DATA_RESET";
+
 export const ADD_PROVIDER_MODAL = "ADD_PROVIDER_MODAL";
 export const DELETE_PROVIDER_MODAL = "DELETE_PROVIDER_MODAL";
 export const EDIT_PROVIDER_MODAL = "EDIT_PROVIDER_MODAL";
@@ -58,3 +63,8 @@ export const initiateDeleteProvider = body => ({ type: INITIATE_DELETE_PROVIDER,
 export const initiateDeleteProviderComplete = deleteProviderCompleteData => ({ type: INITIATE_DELETE_PROVIDER_COMPLETE, deleteProviderCompleteData })
 export const initiateDeleteProviderError = errorData => ({ type: INITIATE_DELETE_PROVIDER_ERROR, errorData })
 export const initiateDeleteProviderReset = () => ({ type: INITIATE_DELETE_PROVIDER_DATA_RESET })
+
+export const initiateEditProvider = body => ({ type: INITIATE_EDIT_PROVIDER, body })
+export const initiateEditProviderComplete = editProviderCompleteData => ({ type: INITIATE_EDIT_PROVIDER_COMPLETE, editProviderCompleteData })
+export const initiateEditProviderError = errorData => ({ type: INITIATE_EDIT_PROVIDER_ERROR, errorData })
+export const initiateEditProviderReset = () => ({ type: INITIATE_EDIT_PROVIDER_DATA_RESET })

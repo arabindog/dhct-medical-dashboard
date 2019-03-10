@@ -13,14 +13,15 @@
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
     "lodash": "^4.17.10",
+    "moment": "^2.24.0",
+    "query-string": "6.3.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
+    "react-dropdown": "1.6.4",
     "react-redux": "^5.0.5",
     "react-scripts": "1.1.4",
     "redux": "^3.7.2",
-    "redux-saga": "^0.15.6",
-    "react-dropdown": "1.6.4",
-    "query-string": "6.3.0"
+    "redux-saga": "^0.15.6"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -277,10 +277,20 @@ class LandingPage extends React.Component {
                               <select
                                 id="actiondropdown"
                                 onChange={(e) => this.actionClick(index, e)}
-                                value={this.state.drop}>
+                                value={this.state.drop}
+                                style={{
+                                  color: '#ffffff',
+                                  backgroundColor: '#ff0076',
+                                  padding: '4px 16px',
+                                  border: '1px solid transparent',
+                                  borderColor: 'transparent transparent rgba(0, 0, 0, 0.1) transparent',
+                                  borderRadius: '5px',
+                                  cursor: 'pointer',
+                                  userSelect: 'none'
+                                }}>
                                 <option value="">Actions</option>
-                                <option value="edit" >Edit</option>
-                                <option value="delete" >Delete</option>
+                                <option value="edit" style={{ backgroundColor: '#cac4c4' }}>Edit</option>
+                                <option value="delete" style={{ backgroundColor: '#cac4c4' }}>Delete</option>
                               </select>
                             </div>
                           </div>
@@ -289,11 +299,15 @@ class LandingPage extends React.Component {
                       <div className="row providerinfo">
                         <div className="col-md-3">
                           <div className="tabhead">Phone</div>
-                          <div className="datafields">{value.dhct_provider_phone_number ? value.dhct_provider_phone_number : 'N/A'}</div>
+                          <div className="datafields">
+                            {value.dhct_provider_mobile_number ? !value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2] ? value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1] : `(${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1]}) ${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2]}${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3] ? `-${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3]}` : ''}` : 'N/A'}
+                          </div>
                         </div>
                         <div className="col-md-3">
                           <div className="tabhead">Fax</div>
-                          <div className="datafields">{value.dhct_provider_fax_number ? value.dhct_provider_fax_number : 'N/A'}</div>
+                          <div className="datafields">
+                            {value.dhct_provider_fax_number ? !value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2] ? value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1] : `(${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1]}) ${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2]}${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3] ? `-${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3]}` : ''}` : 'N/A'}
+                          </div>
                         </div>
                         <div className="col-md-3">
                           <div className="tabhead">Email</div>
