@@ -16,9 +16,7 @@ class DeleteProviderModal extends React.Component {
         this.props.diplayPageView('')
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         if (!nextProps.initiate_delete_provider && nextProps.initiate_delete_provider_complete && !nextProps.initiate_delete_provider_error) {
-            //debugger
             //if (nextProps.delete_provider_data.length === 2) {
                 this.props.initiateFetchProvider();
                 this.props.diplayPageView('');
@@ -39,7 +37,6 @@ class DeleteProviderModal extends React.Component {
         this.props.initiateDeleteProvider(body)
     }
     render() {
-        console.log(this.state)
         return (
             <div>
                 <div className="modal fade show" id="deleteRecord" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" aria-modal="true" style={{ display: 'block', backgroundColor: '#000000b5' }}>

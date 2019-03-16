@@ -16,7 +16,10 @@ import {
   initiateFetchProviderPutError,
   INITIATE_FETCH_DHCT,
   initiateFetchDhctComplete,
-  initiateFetchDhctError
+  initiateFetchDhctError,
+  INITIATE_EDIT_PROVIDER,
+  initiateEditProviderComplete,
+  initiateEditProviderError
 } from "../action/actions";
 
 function* fetchProviderApiData() {
@@ -84,11 +87,23 @@ function* deleteProviderApiData(action) {
   }
 }
 
+function* editProviderApiData(action) {
+  try {
+    const editProviderCompletedata = yield call(axios.post, 'https://y11azyis0f.execute-api.us-east-1.amazonaws.com/test/updatedhctpatientprovider', action.body);
+    yield put(initiateEditProviderComplete(editProviderCompletedata));
+  }
+  catch (errorData) {
+    console.log(errorData)
+    yield put(initiateEditProviderError(errorData));
+  }
+}
+
 export default function* mySaga() {
   yield takeLatest(INITIATE_FETCH_PROVIDER, fetchProviderApiData);
   yield takeLatest(INITIATE_POST_PROVIDER_DATA, postProviderApiData);
   yield takeLatest(INITIATE_DELETE_PROVIDER, deleteProviderApiData);
   yield takeLatest(INITIATE_FETCH_PROVIDER_PUT, fetchProviderPutApiData);
   yield takeLatest(INITIATE_FETCH_DHCT, fetchDhctApiData);
+  yield takeLatest(INITIATE_EDIT_PROVIDER, editProviderApiData);
 }
 

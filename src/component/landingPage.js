@@ -90,7 +90,6 @@ class LandingPage extends React.Component {
           }
         }
       })
-      console.log('fetch 1st success')
       let dhctBody = {
         provider_npi_ccm_number: provider_npi_ccm_number,
         ccm_patient_account_id: ccm_patient_account_id
@@ -112,7 +111,6 @@ class LandingPage extends React.Component {
         providerPhone: providerPhone,
         providerFax: providerFax
       })
-      console.log('put 1st ccomplete')
     } else if (!nextProps.initiate_fetch_provider_put && !nextProps.initiate_fetch_provider_put_complete && nextProps.initiate_fetch_provider_put_error) {
       console.log('put 1st error')
     }
@@ -123,7 +121,6 @@ class LandingPage extends React.Component {
       } else {
         this.setState({ dhctData: [] });
       }
-      console.log('put 1st ccomplete')
     } else if (!nextProps.initiate_fetch_dhct && !nextProps.initiate_fetch_dhct_complete && nextProps.initiate_fetch_dhct_error) {
       console.log('put 1st error')
     }
@@ -155,8 +152,6 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    console.log('updated-' + this.props.update_provider_id)
-    console.log(this.state)
     return (
       <div>
         <div className="container-fluid">
@@ -176,9 +171,10 @@ class LandingPage extends React.Component {
               </div> :
               <div className="row fixed-top headerbar">
                 <div className="col-md-3 profiledetails">
-                  <span style={{ fontSize: '16px' }}><b>{this.state.patientData.patient_first_name} {this.state.patientData.patient_middle_initial} {this.state.patientData.patient_last_name}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;DOB: {this.state.patientData.patient_date_of_birth}<br />
+                  <span style={{ fontSize: '16px' }}><b>{this.state.patientData.patient_first_name} {this.state.patientData.patient_middle_initial} {this.state.patientData.patient_last_name}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                  DOB: {this.state.patientData.patient_date_of_birth.split("-")[1] + '-' + this.state.patientData.patient_date_of_birth.split("-")[2] + '-' + this.state.patientData.patient_date_of_birth.split("-")[0]}<br />
                   Phone: <b>{this.state.patientHomePhone}</b><br />
-                  CCM Provider: <b>{this.state.patientData.ccm_provider_first_name} {this.state.patientData.ccm_provider_middle}{this.state.patientData.ccm_provider_last_name}</b><br />
+                  CCM Provider: <b>{this.state.providerData.ccm_provider_first_name} {this.state.providerData.ccm_provider_middle} {this.state.providerData.ccm_provider_last_name}</b><br />
                   Speaking with : <b>Joseph Flowers (caregiver)</b>
                 </div>
                 <div className="col-md-7 timer">
@@ -214,8 +210,6 @@ class LandingPage extends React.Component {
             </div>
             <div className="col-md-7 content">
               {Object.keys(this.state.providerData).length === 0 || this.state.providerData === 'please provide valid ccm_patient_account_id' ?
-                // <div>No provider details available for the ccm patient id.</div>
-
                 <div className="row" style={{ minWidth: '600px' }}>
                   <div className="col-md-8" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>No provider details available for the ccm patient id.</div>
                 </div> :
@@ -251,11 +245,15 @@ class LandingPage extends React.Component {
                   <div className="row providerinfo">
                     <div className="col-md-4">
                       <div className="tabhead">Appointment date of last visit</div>
-                      <div className="datafields">{this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit}</div>
+                      <div className="datafields">
+                        {this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[1] + '-' + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[2] + '-' + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[0]}
+                      </div>
                     </div>
                     <div className="col-md-4">
                       <div className="tabhead">Appointment date of next visit</div>
-                      <div className="datafields">{this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit}</div>
+                      <div className="datafields">
+                        {this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[1] + '-' + this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[2] + '-' + this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[0]}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -317,11 +315,15 @@ class LandingPage extends React.Component {
                       <div className="row providerinfo">
                         <div className="col-md-4">
                           <div className="tabhead">Appointment date of last visit</div>
-                          <div className="datafields">{value.dhct_patient_approximate_date_of_last_provider_visit}</div>
+                          <div className="datafields">
+                            {value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[1] + '-' + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[2] + '-' + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[0]}
+                          </div>
                         </div>
                         <div className="col-md-4">
                           <div className="tabhead">Appointment date of next visit</div>
-                          <div className="datafields">{value.dhct_patient_approximate_date_of_next_provider_visit}</div>
+                          <div className="datafields">
+                            {value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[1] + '-' + value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[2] + '-' + value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[0]}
+                          </div>
                         </div>
                       </div>
                     </div>

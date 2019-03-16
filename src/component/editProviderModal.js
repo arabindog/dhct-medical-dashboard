@@ -4,7 +4,10 @@ import { connect } from "react-redux";
 import moment from 'moment';
 
 import {
-    diplayPageView
+    initiateFetchProvider,
+    diplayPageView,
+    initiateEditProvider,
+    initiateEditProviderReset
 } from "../action/actions";
 
 class EditProviderModal extends React.Component {
@@ -41,7 +44,7 @@ class EditProviderModal extends React.Component {
             practiceNameError: false,
             practiceNameErrorText: '',
             currentDate: moment().format('YYYY-MM-DD'),
-            addProviderError: false
+            editProviderError: false
         }
         this.closeModal = this.closeModal.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
@@ -131,17 +134,13 @@ class EditProviderModal extends React.Component {
         this.phoneFormat();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (!nextProps.initiate_post_provider && nextProps.initiate_post_provider_complete && !nextProps.initiate_post_provider_error) {
-    //         if (nextProps.post_provider_data.data.length === 2) {
-    //             this.props.initiateFetchProvider();
-    //             this.props.diplayPageView('');
-    //             this.props.initiatePostProviderReset();
-    //         } else {
-    //             this.setState({ addProviderError: true })
-    //         }
-    //     }
-    // }
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.initiate_edit_provider && nextProps.initiate_edit_provider_complete && !nextProps.initiate_edit_provider_error) {
+            this.props.initiateFetchProvider();
+            this.props.diplayPageView('');
+            this.props.initiateEditProviderReset();
+        }
+    }
 
     saveClick() {
         let validationStatus = true;
@@ -233,13 +232,12 @@ class EditProviderModal extends React.Component {
             dhct_provider_fax_number: this.state.fax.replace(/\D+/g, ""),
             dhct_provider_email: this.state.email,
             emr_patient_account_id: this.props.fetch_provider_put_data.data.emr_patient_account_id,
-            provider_npi_dhct_number: (this.state.phone.replace(/\D+/g, "")).slice(0, 5),
+            provider_npi_dhct_number: this.props.update_provider_id.provider_npi_dhct_number,
             dhct_patient_approximate_date_of_last_provider_visit: this.state.lastDateVisited,
             dhct_patient_approximate_date_of_next_provider_visit: this.state.nextVisitDate
         }
-        console.log(body)
         if (validationStatus) {
-            console.log('validation status true-ready for backend call')
+            this.props.initiateEditProvider(body)
         }
     }
 
@@ -333,7 +331,6 @@ class EditProviderModal extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', backgroundColor: '#000000b5', overflowY: 'scroll' }}>
                 <div className="modal-dialog modal-dialog-centered" role="document">
@@ -459,7 +456,7 @@ class EditProviderModal extends React.Component {
                         </div>
                         <div className="modal-footer" style={{ borderTop: '0', paddingRight: '7%' }}>
                             {
-                                this.state.addProviderError &&
+                                this.state.editProviderError &&
                                 <div style={{ color: 'red', fontSize: '13px', paddingRight: '10px' }}>Provider could not be added. Please try again later.</div>
                             }
                             <button type="button" className="btn btn-secondary btn-sm" data-dismiss="modal" style={{ backgroundColor: '#ff0076' }} onClick={this.closeModal}>Cancel</button>
@@ -475,11 +472,20 @@ class EditProviderModal extends React.Component {
 const mapStateToProps = state => ({
     update_provider_id: state.addProviderReducer.update_provider_id,
     fetch_provider_put_data: state.fetchReducer.fetch_provider_put_data,
+
+    initiate_edit_provider: state.editProviderReducer.initiate_edit_provider,
+    initiate_edit_provider_complete: state.editProviderReducer.initiate_edit_provider_complete,
+    initiate_edit_provider_error: state.editProviderReducer.initiate_edit_provider_error,
+    edit_provider_data: state.editProviderReducer.edit_provider_data,
+    edit_provider_error_data: state.editProviderReducer.edit_provider_error_data,
 });
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
-        diplayPageView
+        diplayPageView,
+        initiateFetchProvider,
+        initiateEditProvider,
+        initiateEditProviderReset
     }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProviderModal);

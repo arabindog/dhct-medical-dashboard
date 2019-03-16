@@ -213,7 +213,6 @@ class AddProviderModal extends React.Component {
             dhct_patient_approximate_date_of_last_provider_visit: this.state.lastDateVisited,
             dhct_patient_approximate_date_of_next_provider_visit: this.state.nextVisitDate
         }
-        console.log(body)
         if (validationStatus) {
             this.props.initiatePostProvider(body);
         }
@@ -310,7 +309,6 @@ class AddProviderModal extends React.Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', backgroundColor: '#000000b5', overflowY: 'scroll' }}>
                 <div className="modal-dialog modal-dialog-centered" role="document">
