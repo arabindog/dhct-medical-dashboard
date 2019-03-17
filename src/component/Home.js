@@ -11,7 +11,6 @@ import { ADD_PROVIDER_MODAL, DELETE_PROVIDER_MODAL, EDIT_PROVIDER_MODAL } from '
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state
     this.state = {
       displayPage: ''
     }

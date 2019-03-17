@@ -168,49 +168,49 @@ class EditProviderModal extends React.Component {
         if (this.state.firstName.trim() === '') {
             this.setState({
                 firstNameError: true,
-                firstNameErrorText: 'First Name can not be blank.'
+                firstNameErrorText: 'First Name cannot be blank.'
             })
             validationStatus = false
         }
         if (this.state.lastName.trim() === '') {
             this.setState({
                 lastNameError: true,
-                lastNameErrorText: 'Last Name can not be blank.'
+                lastNameErrorText: 'Last Name cannot be blank.'
             })
             validationStatus = false
         }
         if (this.state.practiceName.trim() === '') {
             this.setState({
                 practiceNameError: true,
-                practiceNameErrorText: 'Practice Name can not be blank.'
+                practiceNameErrorText: 'Practice Name cannot be blank.'
             })
             validationStatus = false
         }
         if (this.state.lastDateVisited === '') {
             this.setState({
                 lastVisitedDateError: true,
-                lastVisitedDateErrorText: 'Last date visited can not be blank.'
+                lastVisitedDateErrorText: 'Last date visited cannot be blank.'
             })
             validationStatus = false
         }
         if (this.state.nextVisitDate === '') {
             this.setState({
                 nextVisitDateError: true,
-                nextVisitDateErrorText: 'Next visit date can not be blank.'
+                nextVisitDateErrorText: 'Next visit date cannot be blank.'
             })
             validationStatus = false
         }
         if (this.state.lastDateVisited > this.state.currentDate && this.state.lastDateVisited !== '') {
             this.setState({
                 lastVisitedDateError: true,
-                lastVisitedDateErrorText: 'Last visited date can not after todays date.'
+                lastVisitedDateErrorText: 'Last visited date cannot be a future date.'
             })
             validationStatus = false
         }
         if (this.state.nextVisitDate < this.state.currentDate && this.state.nextVisitDate !== '') {
             this.setState({
                 nextVisitDateError: true,
-                nextVisitDateErrorText: 'Next visit date can not be older than todays date.'
+                nextVisitDateErrorText: 'Next visit date cannot be a previous date.'
             })
             validationStatus = false
         }
