@@ -21,7 +21,6 @@ class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drop: '',
       ccmProviderMobile: '',
       ccmProviderFax: '',
       providerData: {},
@@ -34,14 +33,39 @@ class LandingPage extends React.Component {
       providerPhone: '',
       providerFax: '',
       dhctPhone: '',
-      dhctFax: ''
+      dhctFax: '',
+      clicked: []
     }
     this.addProviderClick = this.addProviderClick.bind(this);
     this.saveClick = this.saveClick.bind(this);
     this.saveAndCloseClick = this.saveAndCloseClick.bind(this);
-    this.actionClick = this.actionClick.bind(this);
     this.deleteProviderClick = this.deleteProviderClick.bind(this);
     this.editProviderClick = this.editProviderClick.bind(this);
+    this.handleActionOutsideClick = this.handleActionOutsideClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleActionOutsideClick, false);
+  }
+
+  handleActionClick(index, e) {
+      console.log('in')
+      let clicked = this.state.clicked;
+      console.log('index-' + clicked[index] + '-yo')
+      clicked[index] = 'show'
+      this.setState({ clicked: clicked });
+      this.state.dhctData && this.state.dhctData.map((value, selectedIndex) => {
+        if (selectedIndex === index) {
+          this.props.updateProviderID(value)
+        }
+      })
+  }
+
+  handleActionOutsideClick(event) {
+    console.log('out')
+    this.setState({
+      clicked: []
+    });
   }
 
   editProviderClick() {
@@ -63,6 +87,7 @@ class LandingPage extends React.Component {
     }
     this.props.initiateFetchProvider();
     this.props.initiateFetchProviderPut(body)
+    document.addEventListener('click', this.handleActionOutsideClick, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,33 +150,21 @@ class LandingPage extends React.Component {
       console.log('put 1st error')
     }
   }
-  actionClick(index, e) {
-    this.setState({ drop: e.target.value });
-    this.state.dhctData && this.state.dhctData.map((value, selectedIndex) => {
-      if (selectedIndex === index) {
-        this.props.updateProviderID(value)
-      }
-    })
-  }
+
   addProviderClick() {
     this.setState({ show: true });
     this.props.diplayPageView(ADD_PROVIDER_MODAL)
-  };
+  }
+
   saveClick() {
   }
+
   saveAndCloseClick() {
-  }
-  componentDidUpdate() {
-    if (this.state.drop === 'edit') {
-      this.props.diplayPageView(EDIT_PROVIDER_MODAL)
-      this.setState({ drop: '' });
-    } else if (this.state.drop === 'delete') {
-      this.props.diplayPageView(DELETE_PROVIDER_MODAL)
-      this.setState({ drop: '' });
-    }
   }
 
   render() {
+    console.log(this.state.clicked.length)
+    console.log(this.state)
     return (
       <div>
         <div className="container-fluid">
@@ -216,7 +229,8 @@ class LandingPage extends React.Component {
                 <div>
                   <div className="row">
                     <div className="col-md-8" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>PROVIDERS</div>
-                    <div className="col-md-4"><a href="#" onClick={this.addProviderClick} className="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter" style={{ backgroundColor: '#371565', borderColor: '#371565' }}>
+                    <div className="col-md-4"><a href="#" onClick={this.addProviderClick} className="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter"
+                      style={{ backgroundColor: '#371565', borderColor: '#371565' }}>
                       <span><img alt='' className="addicon" src={require('../asset/images/plus.png')} /></span> Add Providers </a>
                     </div>
                   </div>
@@ -269,7 +283,21 @@ class LandingPage extends React.Component {
                           </div>
                           <div className="physiciantype">Physician Type: Psychriatrist</div>
                         </div>
-                        <div className="col-md-3">
+
+                        <div className={"dropdown" + " " + this.state.clicked[index]}>
+                          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"
+                            onClick={this.handleActionClick.bind(this, index)}
+                            style={{ cursor: 'pointer' }} ref="refMenu">
+                            Actions
+                          </button>
+                          <div className={"dropdown-menu" + " " + this.state.clicked[index]} aria-labelledby="dropdownMenuButton">
+                            <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={this.editProviderClick}>Edit</a>
+                            <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={this.deleteProviderClick}>Delete</a>
+                          </div>
+                        </div>
+
+                        {/* <div className="col-md-3">
                           <div className="btn-group">
                             <div className="custom">
                               <select
@@ -292,7 +320,8 @@ class LandingPage extends React.Component {
                               </select>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
+
                       </div>
                       <div className="row providerinfo">
                         <div className="col-md-3">
