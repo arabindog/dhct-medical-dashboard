@@ -332,17 +332,100 @@ class EditProviderModal extends React.Component {
 
     render() {
         return (
-            <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', backgroundColor: '#000000b5', overflowY: 'scroll' }}>
-                <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-modal="true" style={{ display: 'block', paddingRight: '17px', backgroundColor: '#000000b5', overflowY: 'scroll' }}>
+                <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
-                        <div className="modal-header custom-modal-header">
-                            <div className="modal-title" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>EDIT PROVIDER</div>
-                            <button type="button" className="close custom-modal-close" data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
+                        <div className="modal-header">
+                            <div className="modal-title text-center" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>EDIT PROVIDER</div>
+                            <button type="button" className="close " data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div className="modal-body">
-                            <div className="row formfields">
+                        <form className="pl-5 pr-5">
+                                <div className="form-row">
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="firstname"><b>First Name</b></label>
+                                        <input type="text" className="form-control" id="firstname"  onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName}/>
+                                        {
+                                            this.state.firstNameError &&
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.firstNameErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="lastname"><b>Last Name</b></label>
+                                        <input type="text" className="form-control" id="lastname" onClick={this.clickLastName} onChange={this.changeLastName} value={this.state.lastName}/>
+                                        {
+                                            this.state.lastNameError &&
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.lastNameErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="practicename"><b>Prctice Name</b></label>
+                                        <input type="text" className="form-control" id="practicename" onClick={this.clickPracticeName} onChange={this.changePracticeName} value={this.state.practiceName} />
+                                        {
+                                            this.state.practiceNameError &&
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.practiceNameErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="physicianstype"><b>Physicians Type</b></label>
+                                        <select id="physicianstype" className="form-control" onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.physicianType}>
+                                            <option value="endocrinology" selected>Endocrinology</option>
+                                            <option value="cardiology">Cardiology</option>
+                                            <option value="opthalmology">Opthalmology</option>
+                                        </select>
+                                        
+                                        {
+                                            this.state.physicianTypeError &&
+                                            <div className="col-md-3 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.physicianTypeErrorText}</div>
+                                        }
+                                    </div>
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="phone"><b>Phone</b></label>
+                                    <input type="text" className="form-control" id="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='15'/>
+                                    {
+                                        this.state.phoneError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.phoneErrorText}</div>
+                                    }
+                                    </div>
+
+                                    <div className="form-group col-md-6">
+                                    <label htmlFor="fax"><b>Fax</b></label>
+                                    <input type="text" className="form-control" id="fax" onClick={this.clickFax} value={this.state.fax} maxLength='15' />
+                                    {
+                                        this.state.faxError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.faxErrorText}</div>
+                                    }
+                                    </div>
+
+                                    <div className="form-group col-md-12">
+                                        <label htmlFor="email"><b>Email</b></label>
+                                        <input type="email" className="form-control" id="email" onChange={this.changeEmail} value={this.state.email} />
+                                        {
+                                            this.state.emailError &&
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.emailErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="lastdate"><b>Approximate date last visited</b></label>
+                                        <input type="date" className="form-control" id="lastdate"  onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} onClick={this.lastDateVisitedClick} />
+                                        {
+                                        this.state.lastVisitedDateError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.lastVisitedDateErrorText}</div>
+                                    }
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="nextdate"><b>Approximate next visit date</b></label>
+                                        <input type="date" className="form-control" id="nextdate" onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} onClick={this.nextVisitDateClick} />
+                                        {
+                                        this.state.nextVisitDateError &&
+                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.nextVisitDateErrorText}</div>
+                                    }
+                                    </div>
+                                </div>
+                            </form>
+                            {/* <div className="row formfields">
                                 <div className="col-md-4 tabhead">First Name</div>
                                 <div className="col-md-8" style={{ textAlign: 'right' }}></div>
                             </div>
@@ -452,15 +535,15 @@ class EditProviderModal extends React.Component {
                                     this.state.dateError &&
                                     <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '300px' }}>{this.state.dateErrorText}</div>
                                 }
-                            </div>
+                            </div> */}
                         </div>
                         <div className="modal-footer" style={{ borderTop: '0', paddingRight: '7%' }}>
                             {
                                 this.state.editProviderError &&
                                 <div style={{ color: 'red', fontSize: '13px', paddingRight: '10px' }}>Provider could not be added. Please try again later.</div>
                             }
-                            <button type="button" className="btn btn-secondary btn-sm" data-dismiss="modal" style={{ backgroundColor: '#ff0076' }} onClick={this.closeModal}>Cancel</button>
-                            <button type="button" className="btn btn-primary btn-sm" style={{ backgroundColor: '#371565' }} onClick={this.saveClick}>Save</button>
+                            <button type="button" className="btn btn-primary" data-dismiss="modal"  onClick={this.closeModal}>Cancel</button>
+                            <button type="button" className="btn btn-secondary"  onClick={this.saveClick}>Save</button>
                         </div>
                     </div>
                 </div>
