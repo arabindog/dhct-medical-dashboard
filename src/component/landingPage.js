@@ -49,11 +49,26 @@ class LandingPage extends React.Component {
   }
 
   handleActionClick(index, e) {
-      console.log('in')
-      let clicked = this.state.clicked;
-      console.log('index-' + clicked[index] + '-yo')
-      clicked[index] = 'show'
-      this.setState({ clicked: clicked });
+    let click = e.target.nextSibling.classList;
+    console.log("in", click);
+    if (click[1] == "undefined" ) {
+      click.remove("undefined");
+      click.add("show");
+    } else if (click[1] == "show") {
+      click.remove("show");
+      click.add("hide");
+    }else{
+      click.remove("hide");
+      click.add("show");
+    }
+    //   let click = this.state.clicked;
+    //   // console.log('index-' + click[index] + '-yo')
+    // console.log(click);
+      
+    //   click[index] == "undefined" ? (click[index] = "hide") : (click[index] = "show");
+    //   // console.log('end-' + click[index] + '-yo')
+    //   this.setState({ clicked: click });
+    //   // console.log('stateend-', this.state.clicked)
       this.state.dhctData && this.state.dhctData.map((value, selectedIndex) => {
         if (selectedIndex === index) {
           this.props.updateProviderID(value)
@@ -66,6 +81,8 @@ class LandingPage extends React.Component {
     this.setState({
       clicked: []
     });
+    
+    
   }
 
   editProviderClick() {
@@ -163,137 +180,318 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.clicked.length)
+    // console.log(this.state.clicked.length)
     console.log(this.state)
     return (
       <div>
         <div className="container-fluid">
-          {
-            Object.keys(this.state.patientData).length === 0
-              ?
-              <div className="row fixed-top headerbar">
-                <div className="col-md-3 profiledetails" style={{ fontSize: '16px' }}>No Data Available</div>
-                <div className="col-md-7 timer">
-                  <b>00:02:00</b><br />
-                  <span style={{ fontSize: '11px' }}>19:00/21:00 month(2:00 remaining)</span>
-                </div>
-                <div className="col-md-2 headerbuttons">
-                  <button type="button" className="btn btn-info" onClick={this.saveClick}>Save</button>&nbsp;
-              <button type="button" className="btn btn-info" onClick={this.saveAndCloseClick}>Save & Close</button>
-                </div>
-              </div> :
-              <div className="row fixed-top headerbar">
-                <div className="col-md-3 profiledetails">
-                  <span style={{ fontSize: '16px' }}><b>{this.state.patientData.patient_first_name} {this.state.patientData.patient_middle_initial} {this.state.patientData.patient_last_name}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                  DOB: {this.state.patientData.patient_date_of_birth.split("-")[1] + '-' + this.state.patientData.patient_date_of_birth.split("-")[2] + '-' + this.state.patientData.patient_date_of_birth.split("-")[0]}<br />
-                  Phone: <b>{this.state.patientHomePhone}</b><br />
-                  CCM Provider: <b>{this.state.providerData.ccm_provider_first_name} {this.state.providerData.ccm_provider_middle} {this.state.providerData.ccm_provider_last_name}</b><br />
-                  Speaking with : <b>Joseph Flowers (caregiver)</b>
-                </div>
-                <div className="col-md-7 timer">
-                  <b>00:02:00</b><br />
-                  <span style={{ fontSize: '11px' }}>19:00/21:00 month(2:00 remaining)</span>
-                </div>
-                <div className="col-md-2 headerbuttons">
-                  <button type="button" className="btn btn-info" onClick={this.saveClick}>Save</button>&nbsp;
-              <button type="button" className="btn btn-info" onClick={this.saveAndCloseClick}>Save & Close</button>
-                </div>
+          {Object.keys(this.state.patientData).length === 0 ? (
+            <div className="row sticky-top bg-light">
+              <div className="col-md-4 p-4">No Data Available</div>
+              <div className="col-md-3 offset-md-2 p-5">
+                <b>00:02:00</b>
+                <br />
+                <span>19:00/21:00 month(2:00 remaining)</span>
               </div>
-          }
-          <div className="row">
-            <div className="col-md-3 col-md-offset-3 sidebar-outer" >
-              <div className="fixed sidebar col-md-3">
-                <span className="navcategory">VALIDATE</span>
-                <a href="#home">Contact Information</a>
-                <a className="active" href="#news">Providers</a>
-                <a href="#contact">Insurance & Benefits</a>
-                <br />
-                <span className="navcategory">REVIEW</span>
-                <a href="#home">Hospitalizations & Surgeries</a>
-                <a href="#news">Medications & Vaccinations</a>
-                <a href="#contact">Devices</a>
-                <a href="#contact">Self Assessment</a>
-                <br />
-                <span className="navcategory">CARE PLAN</span>
-                <a href="#home">Conditions</a>
-                <a href="#news">Symptoms</a>
-                <a href="#contact">Goals</a>
-                <a href="#contact">Resources</a>
+              <div className="col-md-3 p-5">
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  onClick={this.saveClick}
+                >
+                  Save
+                </button>
+                &nbsp;
+                <button
+                  type="button"
+                  className="btn btn-info ml-2"
+                  onClick={this.saveAndCloseClick}
+                >
+                  Save & Close
+                </button>
               </div>
             </div>
-            <div className="col-md-7 content">
-              {Object.keys(this.state.providerData).length === 0 || this.state.providerData === 'please provide valid ccm_patient_account_id' ?
-                <div className="row" style={{ minWidth: '600px' }}>
-                  <div className="col-md-8" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>No provider details available for the ccm patient id.</div>
-                </div> :
+          ) : (
+            <div className="row sticky-top bg-light">
+              <div className="col-md-4 p-4">
+                <span>
+                  <b>
+                    {this.state.patientData.patient_first_name}{" "}
+                    {this.state.patientData.patient_middle_initial}{" "}
+                    {this.state.patientData.patient_last_name}
+                  </b>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp; DOB:{" "}
+                {this.state.patientData.patient_date_of_birth.split(
+                  "-"
+                )[1] +
+                  "-" +
+                  this.state.patientData.patient_date_of_birth.split(
+                    "-"
+                  )[2] +
+                  "-" +
+                  this.state.patientData.patient_date_of_birth.split(
+                    "-"
+                  )[0]}
+                <br />
+                Phone: <b>{this.state.patientHomePhone}</b>
+                <br />
+                CCM Provider:{" "}
+                <b>
+                  {this.state.providerData.ccm_provider_first_name}{" "}
+                  {this.state.providerData.ccm_provider_middle}{" "}
+                  {this.state.providerData.ccm_provider_last_name}
+                </b>
+                <br />
+                Speaking with : <b>Joseph Flowers (caregiver)</b>
+              </div>
+              <div className="col-md-3 offset-md-2 p-5">
+                <b>00:02:00</b>
+                <br />
+                <span>19:00/21:00 month(2:00 remaining)</span>
+              </div>
+              <div className="col-md-3 p-5">
+                <button
+                  type="button"
+                  className="btn btn-info"
+                  onClick={this.saveClick}
+                >
+                  Save
+                </button>
+                &nbsp;
+                <button
+                  type="button"
+                  className="btn btn-info ml-2"
+                  onClick={this.saveAndCloseClick}
+                >
+                  Save & Close
+                </button>
+              </div>
+            </div>
+          )}
+          <div className="row mt-auto">
+            <div className="col-md-3 position-fixed bg-white h-100">
+              <div className="pl-5 pt-3">
+                <span>VALIDATE</span> <br />
+                <p>
+                  <a href="#home">Contact Information</a>
+                </p>
+                <p>
+                  <a className="active" href="#news">
+                    Providers
+                  </a>
+                </p>
+                <p>
+                  <a href="#contact">Insurance & Benefits</a>
+                </p>
+                <br />
+                <span className=" ">REVIEW</span>
+                <p>
+                  <a href="#home">Hospitalizations & Surgeries</a>
+                </p>
+                <p>
+                  <a href="#news">Medications & Vaccinations</a>
+                </p>
+                <p>
+                  <a href="#contact">Devices</a>
+                </p>
+                <p>
+                  <a href="#contact">Self Assessment</a>
+                </p>
+                <br />
+                <span className="">CARE PLAN</span>
+                <p>
+                  <a href="#home">Conditions</a>
+                </p>
+                <p>
+                  <a href="#news">Symptoms</a>
+                </p>
+                <p>
+                  <a href="#contact">Goals</a>
+                </p>
+                <p>
+                  <a href="#contact">Resources</a>
+                </p>
+              </div>
+            </div>
+            <div className="col-md-7 offset-md-3 pl-4">
+              {Object.keys(this.state.providerData).length === 0 ||
+              this.state.providerData ===
+                "please provide valid ccm_patient_account_id" ? (
+                <div className="row mt-3" style={{ minWidth: "600px" }}>
+                  <div className="col-md-8">
+                    No provider details available for the ccm patient id.
+                  </div>
+                </div>
+              ) : (
                 <div>
-                  <div className="row">
-                    <div className="col-md-8" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>PROVIDERS</div>
-                    <div className="col-md-4"><a href="#" onClick={this.addProviderClick} className="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter"
-                      style={{ backgroundColor: '#371565', borderColor: '#371565' }}>
-                      <span><img alt='' className="addicon" src={require('../asset/images/plus.png')} /></span> Add Providers </a>
+                  <div className="row mt-3">
+                    <div className="col-md-8">PROVIDERS</div>
+                    <div className="col-md-4">
+                      <a
+                        href="#"
+                        onClick={this.addProviderClick}
+                        className="btn btn-info"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                      >
+                        <span
+                          className="glyphicon glyphicon-plus"
+                          aria-hidden="true"
+                        />{" "}
+                        Add Providers{" "}
+                      </a>
                     </div>
                   </div>
-                  <div className="row" style={{ marginTop: '5%' }}>
+                   {/* provider 1 */}
+                    <div className="row mt-3" >
                     <div className="col-md-12">
-                      <div className="name">
-                        {this.state.providerData.ccm_provider_first_name} {this.state.providerData.ccm_provider_middle} {this.state.providerData.ccm_provider_last_name} <span className="ccm">CCM</span>
+                      <div>
+                        <h4>
+                          {this.state.providerData.ccm_provider_first_name}{" "}
+                          {this.state.providerData.ccm_provider_middle}{" "}
+                          {this.state.providerData.ccm_provider_last_name}{" "}
+                          <span className="badge badge-danger">CCM</span>
+                        </h4>
                       </div>
-                      <div className="physiciantype">Physician Type: Cardiologist</div>
+                      <div>
+                          <b>Physician Type:</b> Cardiologist
+                      </div>
                     </div>
                   </div>
-                  <div className="row providerinfo">
+                  <div className="row mt-4">
                     <div className="col-md-3">
-                      <div className="tabhead">Phone</div>
-                      <div className="datafields">{this.state.providerPhone ? this.state.providerPhone : 'N/A'}</div>
+                        <div className=""><b>Phone</b></div>
+                        <div className="">
+                        {this.state.providerPhone
+                          ? this.state.providerPhone
+                          : "N/A"}
+                      </div>
                     </div>
                     <div className="col-md-3">
-                      <div className="tabhead">Fax</div>
-                      <div className="datafields">{this.state.providerFax ? this.state.providerFax : 'N/A'}</div>
+                        <div className=""><b> Fax </b></div>
+                      <div className="">
+                        {this.state.providerFax
+                          ? this.state.providerFax
+                          : "N/A"}
+                      </div>
                     </div>
                     <div className="col-md-3">
-                      <div className="tabhead">Email</div>
-                      <div className="datafields">{this.state.providerData.ccm_provider_email ? this.state.providerData.ccm_provider_email : 'N/A'}</div>
+                        <div className=""><b> Email </b></div>
+                      <div className="">
+                        {this.state.providerData.ccm_provider_email
+                          ? this.state.providerData.ccm_provider_email
+                          : "N/A"}
+                      </div>
                     </div>
                   </div>
                   <div className="row providerinfo">
                     <div className="col-md-4">
-                      <div className="tabhead">Appointment date of last visit</div>
-                      <div className="datafields">
-                        {this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[1] + '-' + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[2] + '-' + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[0]}
+                      <div className="">
+                          <b>Appointment date of last visit</b> 
+                      </div>
+                      <div className="">
+                        {this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                          "-"
+                        )[1] +
+                          "-" +
+                          this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                            "-"
+                          )[2] +
+                          "-" +
+                          this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                            "-"
+                          )[0]}
                       </div>
                     </div>
                     <div className="col-md-4">
-                      <div className="tabhead">Appointment date of next visit</div>
-                      <div className="datafields">
-                        {this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[1] + '-' + this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[2] + '-' + this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split("-")[0]}
+                      <div className="">
+                        <b>   Appointment date of next visit </b> 
+                      </div>
+                      <div className="">
+                        {this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                          "-"
+                        )[1] +
+                          "-" +
+                          this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                            "-"
+                          )[2] +
+                          "-" +
+                          this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                            "-"
+                          )[0]}
                       </div>
                     </div>
                   </div>
                 </div>
-              }
-              {
-                this.state.dhctData.length !== 0 ?
-                  this.state.dhctData.map((value, index) => {
-                    return <div key={index}>
-                      <div className="row" style={{ marginTop: '5%' }}>
+              )}
+               {/* provider 2 */}
+              {this.state.dhctData.length !== 0 ? (
+                this.state.dhctData.map((value, index) => {
+                  return (
+                    <div key={index}>
+                      <div className="row mt-5">
                         <div className="col-md-8">
-                          <div className="name">
-                            {value.dhct_provider_first_name} {value.dhct_provider_middle} {value.dhct_provider_last_name}
+                          <div className="">
+                            <h4>
+                              {value.dhct_provider_first_name}{" "}
+                              {value.dhct_provider_middle}{" "}
+                              {value.dhct_provider_last_name}
+                            </h4>
                           </div>
-                          <div className="physiciantype">Physician Type: Psychriatrist</div>
+                          <div className="">
+                            <b> Physician Type:</b>{" "}
+                            Psychriatrist
+                          </div>
                         </div>
 
-                        <div className={"dropdown" + " " + this.state.clicked[index]}>
-                          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"
-                            onClick={this.handleActionClick.bind(this, index)}
-                            style={{ cursor: 'pointer' }} ref="refMenu">
+                        <div
+                          className={
+                            "dropdown" +
+                            " " +
+                            this.state.clicked[index]
+                          }
+                        >
+                          <button
+                            className="btn btn-warning dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            onClick={this.handleActionClick.bind(
+                              this,
+                              index
+                            )}
+                            
+                            ref="refMenu"
+                          >
                             Actions
                           </button>
-                          <div className={"dropdown-menu" + " " + this.state.clicked[index]} aria-labelledby="dropdownMenuButton">
-                            <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={this.editProviderClick}>Edit</a>
-                            <a className="dropdown-item" style={{ cursor: 'pointer' }} onClick={this.deleteProviderClick}>Delete</a>
+                          <div
+                            className={
+                              "dropdown-menu" +
+                              " " +
+                              this.state.clicked[index]
+                            }
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <a
+                              className="dropdown-item"
+                              style={{ cursor: "pointer" }}
+                              onClick={this.editProviderClick}
+                            >
+                              Edit
+                            </a>
+                            <a
+                              className="dropdown-item"
+                              style={{ cursor: "pointer" }}
+                              onClick={
+                                this.deleteProviderClick
+                              }
+                            >
+                              Delete
+                            </a>
                           </div>
                         </div>
 
@@ -321,53 +519,181 @@ class LandingPage extends React.Component {
                             </div>
                           </div>
                         </div> */}
-
                       </div>
-                      <div className="row providerinfo">
+                      <div className="row mt-4">
                         <div className="col-md-3">
-                          <div className="tabhead">Phone</div>
-                          <div className="datafields">
-                            {value.dhct_provider_mobile_number ? !value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2] ? value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1] : `(${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1]}) ${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2]}${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3] ? `-${value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3]}` : ''}` : 'N/A'}
+                          <div className="">
+                            {" "}
+                            <b> Phone</b>
+                          </div>
+                          <div className="">
+                            {value.dhct_provider_mobile_number
+                              ? !value.dhct_provider_mobile_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[2]
+                                ? value.dhct_provider_mobile_number
+                                    .replace(/\D/g, "")
+                                    .match(
+                                      /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                    )[1]
+                                : `(${
+                                    value.dhct_provider_mobile_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[1]
+                                  }) ${
+                                    value.dhct_provider_mobile_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[2]
+                                  }${
+                                    value.dhct_provider_mobile_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[3]
+                                      ? `-${
+                                          value.dhct_provider_mobile_number
+                                            .replace(
+                                              /\D/g,
+                                              ""
+                                            )
+                                            .match(
+                                              /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                            )[3]
+                                        }`
+                                      : ""
+                                  }`
+                              : "N/A"}
                           </div>
                         </div>
                         <div className="col-md-3">
-                          <div className="tabhead">Fax</div>
-                          <div className="datafields">
-                            {value.dhct_provider_fax_number ? !value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2] ? value.dhct_provider_mobile_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1] : `(${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[1]}) ${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[2]}${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3] ? `-${value.dhct_provider_fax_number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/)[3]}` : ''}` : 'N/A'}
+                          <div className="">
+                            <b> Fax </b>
+                          </div>
+                          <div className="">
+                            {value.dhct_provider_fax_number
+                              ? !value.dhct_provider_fax_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[2]
+                                ? value.dhct_provider_mobile_number
+                                    .replace(/\D/g, "")
+                                    .match(
+                                      /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                    )[1]
+                                : `(${
+                                    value.dhct_provider_fax_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[1]
+                                  }) ${
+                                    value.dhct_provider_fax_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[2]
+                                  }${
+                                    value.dhct_provider_fax_number
+                                      .replace(/\D/g, "")
+                                      .match(
+                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                      )[3]
+                                      ? `-${
+                                          value.dhct_provider_fax_number
+                                            .replace(
+                                              /\D/g,
+                                              ""
+                                            )
+                                            .match(
+                                              /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                            )[3]
+                                        }`
+                                      : ""
+                                  }`
+                              : "N/A"}
                           </div>
                         </div>
                         <div className="col-md-3">
-                          <div className="tabhead">Email</div>
-                          <div className="datafields">{value.dhct_provider_email ? value.dhct_provider_email : 'N/A'}</div>
+                          <div className="">
+                            <b> Email</b>
+                          </div>
+                          <div className="">
+                            {value.dhct_provider_email
+                              ? value.dhct_provider_email
+                              : "N/A"}
+                          </div>
                         </div>
                       </div>
                       <div className="row providerinfo">
                         <div className="col-md-4">
-                          <div className="tabhead">Appointment date of last visit</div>
-                          <div className="datafields">
-                            {value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[1] + '-' + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[2] + '-' + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[0]}
+                          <div className="">
+                            <b>
+                              {" "}
+                              Appointment date of last visit{" "}
+                            </b>
+                          </div>
+                          <div className="">
+                            {value.dhct_patient_approximate_date_of_last_provider_visit.split(
+                              "-"
+                            )[1] +
+                              "-" +
+                              value.dhct_patient_approximate_date_of_last_provider_visit.split(
+                                "-"
+                              )[2] +
+                              "-" +
+                              value.dhct_patient_approximate_date_of_last_provider_visit.split(
+                                "-"
+                              )[0]}
                           </div>
                         </div>
                         <div className="col-md-4">
-                          <div className="tabhead">Appointment date of next visit</div>
-                          <div className="datafields">
-                            {value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[1] + '-' + value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[2] + '-' + value.dhct_patient_approximate_date_of_next_provider_visit.split("-")[0]}
+                          <div className="">
+                            <b>
+                              Appointment date of next visit
+                            </b>
+                          </div>
+                          <div className="">
+                            {value.dhct_patient_approximate_date_of_next_provider_visit.split(
+                              "-"
+                            )[1] +
+                              "-" +
+                              value.dhct_patient_approximate_date_of_next_provider_visit.split(
+                                "-"
+                              )[2] +
+                              "-" +
+                              value.dhct_patient_approximate_date_of_next_provider_visit.split(
+                                "-"
+                              )[0]}
                           </div>
                         </div>
                       </div>
                     </div>
-                  }) :
-                  <div className="col-md-7 content">
-                    <div className="row" style={{ minWidth: '600px' }}>
-                      <div className="col-md-8" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d', paddingLeft: '0px' }}>No dhct data available for this provider.</div>
+                  );
+                })
+              ) : (
+                  <div className="col-md-7 offset-md-3 pl-4">
+                    <div className="row mt-3">
+                    <div
+                      className="col-md-8"
+                     
+                    >
+                        <b>No dhct data available for this provider.</b> 
                     </div>
                   </div>
-              }
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

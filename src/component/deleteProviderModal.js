@@ -39,12 +39,12 @@ class DeleteProviderModal extends React.Component {
     render() {
         return (
             <div>
-                <div className="modal fade show" id="deleteRecord" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" aria-modal="true" style={{ display: 'block', backgroundColor: '#000000b5' }}>
-                    <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal" id="deleteRecord" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" aria-modal="true" style={{ display: 'block', backgroundColor: '#000000b5' }}>
+                    <div className="modal-dialog modal-lg" role="document">
                         <div className="modal-content">
-                            <div className="modal-header custom-modal-header" style={{ paddingBottom: '0' }}>
-                                <div className="modal-title" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>DELETE PROVIDER</div>
-                                <button type="button" className="close custom-modal-close" data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
+                            <div className="modal-header">
+                                <div className="modal-title text-center" id="exampleModalLongTitle" style={{ fontSize: '18px', fontWeight: '100', color: '#7d7d7d' }}>DELETE PROVIDER</div>
+                                <button type="button" className="close " data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -57,8 +57,8 @@ class DeleteProviderModal extends React.Component {
                                     Sure you want to delete this record ?
                             </div>}
                             <div className="modal-footer" style={{ borderTop: '0', paddingRight: '7%' }}>
-                                <button type="button" className="btn btn-secondary btn-sm" data-dismiss="modal" style={{ backgroundColor: '#ff0076' }} onClick={this.closeModal}>Cancel</button>
-                                <button type="button" className="btn btn-primary btn-sm" style={{ backgroundColor: '#371565' }} onClick={this.confirmDeleteProvider}>Yes</button>
+                                <button type="button" className="btn btn-primary " data-dismiss="modal" onClick={this.closeModal}>Cancel</button>
+                                <button type="button" className="btn btn-secondary " onClick={this.confirmDeleteProvider}>Yes</button>
                             </div>
                         </div>
                     </div>
