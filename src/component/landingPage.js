@@ -64,12 +64,8 @@ class LandingPage extends React.Component {
         if (item.classList) {
           item.classList.remove('show')
         }
-        // if(item.classList.length>0 && item.classList[1] == 'show'){
-        //   item.classList.remove('show')
-        // }
       })
     }
-
   }
 
   editProviderClick() {
@@ -328,7 +324,6 @@ class LandingPage extends React.Component {
                         </a>
                       </div>
                     </div>
-                    {/* provider 1 */}
                     <div className="row mt-3" >
                       <div className="col-md-12">
                         <div>
@@ -410,7 +405,6 @@ class LandingPage extends React.Component {
                     </div>
                   </div>
                 )}
-              {/* provider 2 */}
               {this.state.dhctData.length !== 0 ? (
                 this.state.dhctData.map((value, index) => {
                   return (
@@ -479,31 +473,6 @@ class LandingPage extends React.Component {
                             </a>
                           </div>
                         </div>
-
-                        {/* <div className="col-md-3">
-                          <div className="btn-group">
-                            <div className="custom">
-                              <select
-                                id="actiondropdown"
-                                onChange={(e) => this.actionClick(index, e)}
-                                value={this.state.drop}
-                                style={{
-                                  color: '#ffffff',
-                                  backgroundColor: '#ff0076',
-                                  padding: '4px 16px',
-                                  border: '1px solid transparent',
-                                  borderColor: 'transparent transparent rgba(0, 0, 0, 0.1) transparent',
-                                  borderRadius: '5px',
-                                  cursor: 'pointer',
-                                  userSelect: 'none'
-                                }}>
-                                <option value="">Actions</option>
-                                <option value="edit" style={{ backgroundColor: '#cac4c4' }}>Edit</option>
-                                <option value="delete" style={{ backgroundColor: '#cac4c4' }}>Delete</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div> */}
                       </div>
                       <div className="row mt-4">
                         <div className="col-md-3">
