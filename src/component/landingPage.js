@@ -50,23 +50,18 @@ class LandingPage extends React.Component {
   }
 
   handleActionClick(index, e) {
-    console.log('click btn')
     e.target.nextSibling.classList.toggle('show');
-    
-      this.state.dhctData && this.state.dhctData.map((value, selectedIndex) => {
-        if (selectedIndex === index) {
-          this.props.updateProviderID(value)
-        }
-      })
+    this.state.dhctData && this.state.dhctData.map((value, selectedIndex) => {
+      if (selectedIndex === index) {
+        this.props.updateProviderID(value)
+      }
+    })
   }
 
   handleActionOutsideClick(event) {
-
-    console.log('click out', event.target.classList.contains('btn'))
-    if(!event.target.classList.contains('btn')) {
-
+    if (!event.target.classList.contains('btn')) {
       document.querySelectorAll('.dropdown-menu').forEach((item) => {
-        if(item.classList){
+        if (item.classList) {
           item.classList.remove('show')
         }
         // if(item.classList.length>0 && item.classList[1] == 'show'){
@@ -74,7 +69,7 @@ class LandingPage extends React.Component {
         // }
       })
     }
-    
+
   }
 
   editProviderClick() {
@@ -172,8 +167,6 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    // console.log(this.state.clicked.length)
-    console.log(this.state)
     return (
       <div>
         <div className="container-fluid">
@@ -204,63 +197,63 @@ class LandingPage extends React.Component {
               </div>
             </div>
           ) : (
-            <div className="row sticky-top bg-light">
-              <div className="col-md-4 p-4">
-                <span>
+              <div className="row sticky-top bg-light">
+                <div className="col-md-4 p-4">
+                  <span>
+                    <b>
+                      {this.state.patientData.patient_first_name}{" "}
+                      {this.state.patientData.patient_middle_initial}{" "}
+                      {this.state.patientData.patient_last_name}
+                    </b>
+                  </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp; DOB:{" "}
+                  {this.state.patientData.patient_date_of_birth.split(
+                    "-"
+                  )[1] +
+                    "-" +
+                    this.state.patientData.patient_date_of_birth.split(
+                      "-"
+                    )[2] +
+                    "-" +
+                    this.state.patientData.patient_date_of_birth.split(
+                      "-"
+                    )[0]}
+                  <br />
+                  Phone: <b>{this.state.patientHomePhone}</b>
+                  <br />
+                  CCM Provider:{" "}
                   <b>
-                    {this.state.patientData.patient_first_name}{" "}
-                    {this.state.patientData.patient_middle_initial}{" "}
-                    {this.state.patientData.patient_last_name}
+                    {this.state.providerData.ccm_provider_first_name}{" "}
+                    {this.state.providerData.ccm_provider_middle}{" "}
+                    {this.state.providerData.ccm_provider_last_name}
                   </b>
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp; DOB:{" "}
-                {this.state.patientData.patient_date_of_birth.split(
-                  "-"
-                )[1] +
-                  "-" +
-                  this.state.patientData.patient_date_of_birth.split(
-                    "-"
-                  )[2] +
-                  "-" +
-                  this.state.patientData.patient_date_of_birth.split(
-                    "-"
-                  )[0]}
-                <br />
-                Phone: <b>{this.state.patientHomePhone}</b>
-                <br />
-                CCM Provider:{" "}
-                <b>
-                  {this.state.providerData.ccm_provider_first_name}{" "}
-                  {this.state.providerData.ccm_provider_middle}{" "}
-                  {this.state.providerData.ccm_provider_last_name}
-                </b>
-                <br />
-                Speaking with : <b>Joseph Flowers (caregiver)</b>
-              </div>
-              <div className="col-md-3 offset-md-2 p-5">
-                <b>00:02:00</b>
-                <br />
-                <span>19:00/21:00 month(2:00 remaining)</span>
-              </div>
-              <div className="col-md-3 p-5">
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  onClick={this.saveClick}
-                >
-                  Save
+                  <br />
+                  Speaking with : <b>Joseph Flowers (caregiver)</b>
+                </div>
+                <div className="col-md-3 offset-md-2 p-5">
+                  <b>00:02:00</b>
+                  <br />
+                  <span>19:00/21:00 month(2:00 remaining)</span>
+                </div>
+                <div className="col-md-3 p-5">
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    onClick={this.saveClick}
+                  >
+                    Save
                 </button>
-                &nbsp;
+                  &nbsp;
                 <button
-                  type="button"
-                  className="btn btn-info ml-2"
-                  onClick={this.saveAndCloseClick}
-                >
-                  Save & Close
+                    type="button"
+                    className="btn btn-info ml-2"
+                    onClick={this.saveAndCloseClick}
+                  >
+                    Save & Close
                 </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
           <div className="row mt-auto">
             <div className="col-md-3 position-fixed bg-white h-100">
               <div className="pl-5 pt-3">
@@ -308,116 +301,116 @@ class LandingPage extends React.Component {
             </div>
             <div className="col-md-7 offset-md-3 pl-4">
               {Object.keys(this.state.providerData).length === 0 ||
-              this.state.providerData ===
+                this.state.providerData ===
                 "please provide valid ccm_patient_account_id" ? (
-                <div className="row mt-3" style={{ minWidth: "600px" }}>
-                  <div className="col-md-8">
-                    No provider details available for the ccm patient id.
+                  <div className="row mt-3" style={{ minWidth: "600px" }}>
+                    <div className="col-md-8">
+                      No provider details available for the ccm patient id.
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <div className="row mt-3">
-                    <div className="col-md-8">PROVIDERS</div>
-                    <div className="col-md-4">
-                      <a
-                        href="#"
-                        onClick={this.addProviderClick}
-                        className="btn btn-info"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter"
-                      >
-                        <span
-                          className="glyphicon glyphicon-plus"
-                          aria-hidden="true"
-                        />{" "}
-                        Add Providers{" "}
-                      </a>
-                    </div>
                   </div>
-                   {/* provider 1 */}
-                    <div className="row mt-3" >
-                    <div className="col-md-12">
-                      <div>
-                        <h4>
-                          {this.state.providerData.ccm_provider_first_name}{" "}
-                          {this.state.providerData.ccm_provider_middle}{" "}
-                          {this.state.providerData.ccm_provider_last_name}{" "}
-                          <span className="badge badge-danger">CCM</span>
-                        </h4>
+                ) : (
+                  <div>
+                    <div className="row mt-3">
+                      <div className="col-md-8">PROVIDERS</div>
+                      <div className="col-md-4">
+                        <a
+                          href="#"
+                          onClick={this.addProviderClick}
+                          className="btn btn-info"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                        >
+                          <span
+                            className="glyphicon glyphicon-plus"
+                            aria-hidden="true"
+                          />{" "}
+                          Add Providers{" "}
+                        </a>
                       </div>
-                      <div>
+                    </div>
+                    {/* provider 1 */}
+                    <div className="row mt-3" >
+                      <div className="col-md-12">
+                        <div>
+                          <h4>
+                            {this.state.providerData.ccm_provider_first_name}{" "}
+                            {this.state.providerData.ccm_provider_middle}{" "}
+                            {this.state.providerData.ccm_provider_last_name}{" "}
+                            <span className="badge badge-danger">CCM</span>
+                          </h4>
+                        </div>
+                        <div>
                           <b>Physician Type:</b> Cardiologist
                       </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="row mt-4">
-                    <div className="col-md-3">
+                    <div className="row mt-4">
+                      <div className="col-md-3">
                         <div className=""><b>Phone</b></div>
                         <div className="">
-                        {this.state.providerPhone
-                          ? this.state.providerPhone
-                          : "N/A"}
+                          {this.state.providerPhone
+                            ? this.state.providerPhone
+                            : "N/A"}
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-md-3">
+                      <div className="col-md-3">
                         <div className=""><b> Fax </b></div>
-                      <div className="">
-                        {this.state.providerFax
-                          ? this.state.providerFax
-                          : "N/A"}
+                        <div className="">
+                          {this.state.providerFax
+                            ? this.state.providerFax
+                            : "N/A"}
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-md-3">
+                      <div className="col-md-3">
                         <div className=""><b> Email </b></div>
-                      <div className="">
-                        {this.state.providerData.ccm_provider_email
-                          ? this.state.providerData.ccm_provider_email
-                          : "N/A"}
+                        <div className="">
+                          {this.state.providerData.ccm_provider_email
+                            ? this.state.providerData.ccm_provider_email
+                            : "N/A"}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row providerinfo">
+                      <div className="col-md-4">
+                        <div className="">
+                          <b>Appointment date of last visit</b>
+                        </div>
+                        <div className="">
+                          {this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                            "-"
+                          )[1] +
+                            "-" +
+                            this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                              "-"
+                            )[2] +
+                            "-" +
+                            this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                              "-"
+                            )[0]}
+                        </div>
+                      </div>
+                      <div className="col-md-4" style={{ padding: '0px' }}>
+                        <div className="">
+                          <b>   Appointment date of next visit </b>
+                        </div>
+                        <div className="">
+                          {this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                            "-"
+                          )[1] +
+                            "-" +
+                            this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                              "-"
+                            )[2] +
+                            "-" +
+                            this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
+                              "-"
+                            )[0]}
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="row providerinfo">
-                    <div className="col-md-4">
-                      <div className="">
-                          <b>Appointment date of last visit</b> 
-                      </div>
-                      <div className="">
-                        {this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
-                          "-"
-                        )[1] +
-                          "-" +
-                          this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
-                            "-"
-                          )[2] +
-                          "-" +
-                          this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
-                            "-"
-                          )[0]}
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="">
-                        <b>   Appointment date of next visit </b> 
-                      </div>
-                      <div className="">
-                        {this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
-                          "-"
-                        )[1] +
-                          "-" +
-                          this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
-                            "-"
-                          )[2] +
-                          "-" +
-                          this.state.providerData.ccm_patient_approximate_date_of_next_provider_visit.split(
-                            "-"
-                          )[0]}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-               {/* provider 2 */}
+                )}
+              {/* provider 2 */}
               {this.state.dhctData.length !== 0 ? (
                 this.state.dhctData.map((value, index) => {
                   return (
@@ -455,7 +448,7 @@ class LandingPage extends React.Component {
                               this,
                               index
                             )}
-                            
+
                             ref="refMenu"
                           >
                             Actions
@@ -521,45 +514,45 @@ class LandingPage extends React.Component {
                           <div className="">
                             {value.dhct_provider_mobile_number
                               ? !value.dhct_provider_mobile_number
+                                .replace(/\D/g, "")
+                                .match(
+                                  /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                )[2]
+                                ? value.dhct_provider_mobile_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[1]
+                                : `(${
+                                value.dhct_provider_mobile_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[1]
+                                }) ${
+                                value.dhct_provider_mobile_number
                                   .replace(/\D/g, "")
                                   .match(
                                     /(\d{0,3})(\d{0,3})(\d{0,4})/
                                   )[2]
-                                ? value.dhct_provider_mobile_number
-                                    .replace(/\D/g, "")
+                                }${
+                                value.dhct_provider_mobile_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[3]
+                                  ? `-${
+                                  value.dhct_provider_mobile_number
+                                    .replace(
+                                      /\D/g,
+                                      ""
+                                    )
                                     .match(
                                       /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                    )[1]
-                                : `(${
-                                    value.dhct_provider_mobile_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[1]
-                                  }) ${
-                                    value.dhct_provider_mobile_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[2]
-                                  }${
-                                    value.dhct_provider_mobile_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[3]
-                                      ? `-${
-                                          value.dhct_provider_mobile_number
-                                            .replace(
-                                              /\D/g,
-                                              ""
-                                            )
-                                            .match(
-                                              /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                            )[3]
-                                        }`
-                                      : ""
+                                    )[3]
                                   }`
+                                  : ""
+                                }`
                               : "N/A"}
                           </div>
                         </div>
@@ -570,45 +563,45 @@ class LandingPage extends React.Component {
                           <div className="">
                             {value.dhct_provider_fax_number
                               ? !value.dhct_provider_fax_number
+                                .replace(/\D/g, "")
+                                .match(
+                                  /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                )[2]
+                                ? value.dhct_provider_mobile_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[1]
+                                : `(${
+                                value.dhct_provider_fax_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[1]
+                                }) ${
+                                value.dhct_provider_fax_number
                                   .replace(/\D/g, "")
                                   .match(
                                     /(\d{0,3})(\d{0,3})(\d{0,4})/
                                   )[2]
-                                ? value.dhct_provider_mobile_number
-                                    .replace(/\D/g, "")
+                                }${
+                                value.dhct_provider_fax_number
+                                  .replace(/\D/g, "")
+                                  .match(
+                                    /(\d{0,3})(\d{0,3})(\d{0,4})/
+                                  )[3]
+                                  ? `-${
+                                  value.dhct_provider_fax_number
+                                    .replace(
+                                      /\D/g,
+                                      ""
+                                    )
                                     .match(
                                       /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                    )[1]
-                                : `(${
-                                    value.dhct_provider_fax_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[1]
-                                  }) ${
-                                    value.dhct_provider_fax_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[2]
-                                  }${
-                                    value.dhct_provider_fax_number
-                                      .replace(/\D/g, "")
-                                      .match(
-                                        /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                      )[3]
-                                      ? `-${
-                                          value.dhct_provider_fax_number
-                                            .replace(
-                                              /\D/g,
-                                              ""
-                                            )
-                                            .match(
-                                              /(\d{0,3})(\d{0,3})(\d{0,4})/
-                                            )[3]
-                                        }`
-                                      : ""
+                                    )[3]
                                   }`
+                                  : ""
+                                }`
                               : "N/A"}
                           </div>
                         </div>
@@ -645,7 +638,7 @@ class LandingPage extends React.Component {
                               )[0]}
                           </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4" style={{ padding: '0px' }}>
                           <div className="">
                             <b>
                               Appointment date of next visit
@@ -670,17 +663,14 @@ class LandingPage extends React.Component {
                   );
                 })
               ) : (
-                  <div className="col-md-7 offset-md-3 pl-4">
+                  <div className="col-md-7 offset-md-3 pl-4" style={{ marginLeft: '-25px', paddingTop: '20px' }}>
                     <div className="row mt-3">
-                    <div
-                      className="col-md-8"
-                     
-                    >
-                        <b>No dhct data available for this provider.</b> 
+                      <div className="col-md-8" style={{ minWidth: 'fit-content' }}>
+                        <b>No dhct data available for this provider.</b>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
           </div>
         </div>

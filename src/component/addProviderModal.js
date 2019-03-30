@@ -138,7 +138,7 @@ class AddProviderModal extends React.Component {
         if (this.state.physicianType === '') {
             this.setState({
                 physicianTypeError: true,
-                physicianTypeErrorText: 'Please select a Physician Type.'
+                physicianTypeErrorText: 'Physician Type cannot be blank.'
             })
             validationStatus = false
         }
@@ -324,18 +324,18 @@ class AddProviderModal extends React.Component {
                                 <div className="form-row">
                                     <div className="form-group col-md-12">
                                         <label htmlFor="firstname"><b>First Name</b></label>
-                                        <input type="text" className="form-control" id="firstname" onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName}/>
+                                        <input type="text" className="form-control" id="firstname" onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName} />
                                         {
                                             this.state.firstNameError &&
-                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.firstNameErrorText}</div>
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.firstNameErrorText}</div>
                                         }
                                     </div>
                                     <div className="form-group col-md-12">
                                         <label htmlFor="lastname"><b>Last Name</b></label>
-                                        <input type="text" className="form-control" id="lastname" onClick={this.clickLastName} onChange={this.changeLastName} value={this.state.lastName}/>
+                                        <input type="text" className="form-control" id="lastname" onClick={this.clickLastName} onChange={this.changeLastName} value={this.state.lastName} />
                                         {
                                             this.state.lastNameError &&
-                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.lastNameError}</div>
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.lastNameErrorText}</div>
                                         }
                                     </div>
                                     <div className="form-group col-md-12">
@@ -343,185 +343,75 @@ class AddProviderModal extends React.Component {
                                         <input type="text" className="form-control" id="practicename" onClick={this.clickPracticeName} onChange={this.changePracticeName} value={this.state.practiceName} />
                                         {
                                             this.state.practiceNameError &&
-                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.practiceNameErrorText}</div>
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.practiceNameErrorText}</div>
                                         }
                                     </div>
                                     <div className="form-group col-md-12">
                                         <label htmlFor="physicianstype"><b>Physicians Type</b></label>
                                         <select id="physicianstype" className="form-control" onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.physicianType}>
+                                            <option value="" selected>Please select a physician type</option>
                                             <option value="endocrinology" selected>Endocrinology</option>
                                             <option value="cardiology">Cardiology</option>
                                             <option value="opthalmology">Opthalmology</option>
                                         </select>
-                                        
+
                                         {
                                             this.state.physicianTypeError &&
-                                            <div className="col-md-3 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.physicianTypeErrorText}</div>
+                                            <div className="col-md-3 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.physicianTypeErrorText}</div>
                                         }
                                     </div>
-                                <div className="form-group col-md-6">
-                                    <label htmlFor="phone"><b>Phone</b></label>
-                                    <input type="text" className="form-control" id="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='15'/>
-                                   
-                                    {
-                                        this.state.phoneError &&
-                                        <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.phoneErrorText}</div>
-                                    }
-                                </div>
                                     <div className="form-group col-md-6">
-                                    <label htmlFor="fax"><b>Fax</b></label>
-                                    <input type="text" className="form-control" id="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='15'/>
-                                    
-                                    {
-                                        this.state.faxError &&
-                                        <div className="tabhead"  style={{ color: 'red', minWidth: '250px' }}>{this.state.faxErrorText}</div>
-                                    }
+                                        <label htmlFor="phone"><b>Phone</b></label>
+                                        <input type="text" className="form-control" id="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='15' />
+
+                                        {
+                                            this.state.phoneError &&
+                                            <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.phoneErrorText}</div>
+                                        }
+                                    </div>
+                                    <div className="form-group col-md-6">
+                                        <label htmlFor="fax"><b>Fax</b></label>
+                                        <input type="text" className="form-control" id="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='15' />
+
+                                        {
+                                            this.state.faxError &&
+                                            <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.faxErrorText}</div>
+                                        }
                                     </div>
                                     <div className="form-group col-md-12">
                                         <label htmlFor="email"><b>Email</b></label>
-                                        <input type="email" className="form-control" id="email"  onClick={this.emailClick} onChange={this.changeEmail} value={this.state.email}/>
+                                        <input type="email" className="form-control" id="email" onClick={this.emailClick} onChange={this.changeEmail} value={this.state.email} />
                                         {
                                             this.state.emailError &&
-                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.emailErrorText}</div>
+                                            <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.emailErrorText}</div>
                                         }
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="lastdate"><b>Approximate date last visited</b></label>
-                                        <input type="date" className="form-control" id="lastdate"  onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} onClick={this.lastDateVisitedClick}/>
+                                        <input type="date" className="form-control" id="lastdate" onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} onClick={this.lastDateVisitedClick} />
                                         {
-                                        this.state.lastVisitedDateError &&
-                                        <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.lastVisitedDateErrorText}</div>
-                                    }
+                                            this.state.lastVisitedDateError &&
+                                            <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.lastVisitedDateErrorText}</div>
+                                        }
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="nextdate"><b>Approximate next visit date</b></label>
-                                        <input type="date" className="form-control" id="nextdate" onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} onClick={this.nextVisitDateClick}/>
+                                        <input type="date" className="form-control" id="nextdate" onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} onClick={this.nextVisitDateClick} />
                                         {
-                                        this.state.nextVisitDateError &&
-                                        <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.nextVisitDateErrorText}</div>
-                                    }
+                                            this.state.nextVisitDateError &&
+                                            <div className="tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.nextVisitDateErrorText}</div>
+                                        }
                                     </div>
                                 </div>
                             </form>
-                            {/* <div className="row formfields">
-                                <div className="col-md-4 tabhead">First Name</div>
-                                <div className="col-md-8" style={{ textAlign: 'right' }}></div>
-                            </div>
-                            <div className="row textfield">
-                                <div className="col-md-12"><input className="textbox" type="text" name="firstName" onChange={this.changeFirstName} onClick={this.clickFirstName} value={this.state.firstName} /></div>
-                                {
-                                    this.state.firstNameError &&
-                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.firstNameErrorText}</div>
-                                }
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-4 tabhead">Last Name</div>
-                            </div>
-                            <div className="row textfield">
-                                <div className="col-md-12"><input className="textbox" type="text" name="lastName" onClick={this.clickLastName} onChange={this.changeLastName} value={this.state.lastName} /></div>
-                                {
-                                    this.state.lastNameError &&
-                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.lastNameErrorText}</div>
-                                }
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-4 tabhead">Practice Name</div>
-                            </div>
-                            <div className="row textfield">
-                                <div className="col-md-12"><input className="textbox" type="text" name="practiceName" onClick={this.clickPracticeName} onChange={this.changePracticeName} value={this.state.practiceName} /></div>
-                                {
-                                    this.state.practiceNameError &&
-                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.practiceNameErrorText}</div>
-                                }
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-4 tabhead">Physician Type</div>
-                                <div className="col-md-8" style={{ textAlign: 'right' }}></div>
-                            </div>
-                            <div className="row textfield" style={{ paddingBottom: '4%' }}>
-                                <div className="col-md-12">
-                                    <select id="physicianDropdownAdd" className="textbox" style={{ fontSize: '12px', color: '#4e4e4e' }} onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.physicianType}>
-                                        <option value="">Select Physician Type</option>
-                                        <option value="endocrinology">Endocrinology</option>
-                                        <option value="cardiology">Cardiology</option>
-                                        <option value="opthalmology">Opthalmology</option>
-                                    </select>
-                                </div>
-                                {
-                                    this.state.physicianTypeError &&
-                                    <div className="col-md-3 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.physicianTypeErrorText}</div>
-                                }
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-3 tabhead">Phone</div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                                <div className="col-md-3 tabhead">Fax</div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                            </div>
-                            <div className="row textfield" style={{ paddingBottom: '0px' }}>
-                                <div className="col-md-6"><input className="textbox" type="text" name="phone" onChange={this.changePhone} onClick={this.clickPhone} value={this.state.phone} maxLength='15' /></div>
-                                <div className="col-md-6"><input className="textbox" type="text" name="fax" onChange={this.changeFax} onClick={this.clickFax} value={this.state.fax} maxLength='15' /></div>
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-3 tabhead">
-                                    {
-                                        this.state.phoneError &&
-                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.phoneErrorText}</div>
-                                    }
-                                </div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                                <div className="col-md-3 tabhead">
-                                    {
-                                        this.state.faxError &&
-                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.faxErrorText}</div>
-                                    }
-                                </div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                            </div>
-                            <div className="row formfields">
-                                <div className="col-md-4 tabhead">Email</div>
-                            </div>
-                            <div className="row textfield">
-                                <div className="col-md-12"><input className="textbox" type="text" name="email" onClick={this.emailClick} onChange={this.changeEmail} value={this.state.email} /></div>
-                                {
-                                    this.state.emailError &&
-                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px' }}>{this.state.emailErrorText}</div>
-                                }</div>
-
-                            <div className="row formfields">
-                                <div className="col-md-6 tabhead">Approximate date last visited</div>
-                                <div className="col-md-6 tabhead">Approximate next visit date</div>
-                            </div>
-                            <div className="row textfield">
-                                <div className="col-md-6"><input className="textbox" type="date" name="lastvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeLastVisitedDate} value={this.state.lastDateVisited} onClick={this.lastDateVisitedClick} /></div>
-                                <div className="col-md-6"><input className="textbox" type="date" name="nextvisit" style={{ fontSize: '12px', Color: '#333333' }} onChange={this.changeNextVisitDate} value={this.state.nextVisitDate} onClick={this.nextVisitDateClick} /></div>
-                                <div className="col-md-3 tabhead">
-                                    {
-                                        this.state.lastVisitedDateError &&
-                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.lastVisitedDateErrorText}</div>
-                                    }
-                                </div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                                <div className="col-md-3 tabhead">
-                                    {
-                                        this.state.nextVisitDateError &&
-                                        <div style={{ color: 'red', minWidth: '250px' }}>{this.state.nextVisitDateErrorText}</div>
-                                    }
-                                </div>
-                                <div className="col-md-3" style={{ textAlign: 'right' }}></div>
-                                {
-                                    this.state.dateError &&
-                                    <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '300px' }}>{this.state.dateErrorText}</div>
-                                }
-                            </div> */}
                         </div>
                         <div className="modal-footer" style={{ borderTop: '0', paddingRight: '7%' }}>
                             {
                                 this.state.addProviderError &&
                                 <div style={{ color: 'red', fontSize: '13px', paddingRight: '10px' }}>Provider could not be added. Please try again later.</div>
                             }
-                            <button type="button" className="btn btn btn-primary " data-dismiss="modal"  onClick={this.closeModal}>Cancel</button>
-                            <button type="button" className="btn btn-secondary"  onClick={this.saveClick}>Save</button>
+                            <button type="button" className="btn btn btn-primary " data-dismiss="modal" onClick={this.closeModal}>Cancel</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.saveClick}>Save</button>
                         </div>
                     </div>
                 </div>
