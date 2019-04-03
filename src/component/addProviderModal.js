@@ -55,7 +55,7 @@ class AddProviderModal extends React.Component {
         this.changeNextVisitDate = this.changeNextVisitDate.bind(this);
         this.changePhone = this.changePhone.bind(this);
         this.changePhysicianType = this.changePhysicianType.bind(this);
-        this.changePracticeName = this.changePracticeName.bind(this);
+        this.changepracticeName = this.changepracticeName.bind(this);
         this.clickFax = this.clickFax.bind(this);
         this.clickFirstName = this.clickFirstName.bind(this);
         this.clickPhone = this.clickPhone.bind(this);
@@ -64,7 +64,7 @@ class AddProviderModal extends React.Component {
         this.lastDateVisitedClick = this.lastDateVisitedClick.bind(this);
         this.nextVisitDateClick = this.nextVisitDateClick.bind(this);
         this.clickLastName = this.clickLastName.bind(this);
-        this.clickPracticeName = this.clickPracticeName.bind(this);
+        this.clickpracticeName = this.clickpracticeName.bind(this);
         this.emailClick = this.emailClick.bind(this);
     }
 
@@ -82,7 +82,7 @@ class AddProviderModal extends React.Component {
         })
     }
 
-    clickPracticeName() {
+    clickpracticeName() {
         this.setState({
             practiceNameError: false,
             practiceNameErrorText: ''
@@ -170,13 +170,13 @@ class AddProviderModal extends React.Component {
             })
             validationStatus = false
         }
-        if (this.state.nextVisitDate === '') {
-            this.setState({
-                nextVisitDateError: true,
-                nextVisitDateErrorText: 'Next visit date cannot be blank.'
-            })
-            validationStatus = false
-        }
+        // if (this.state.nextVisitDate === '') {
+        //     this.setState({
+        //         nextVisitDateError: true,
+        //         nextVisitDateErrorText: 'Next visit date cannot be blank.'
+        //     })
+        //     validationStatus = false
+        // }
         if (this.state.lastDateVisited > this.state.currentDate && this.state.lastDateVisited !== '') {
             this.setState({
                 lastVisitedDateError: true,
@@ -209,7 +209,7 @@ class AddProviderModal extends React.Component {
             dhct_provider_fax_number: this.state.fax.replace(/\D+/g, ""),
             dhct_provider_email: this.state.email,
             emr_patient_account_id: this.props.fetch_provider_put_data.data.emr_patient_account_id,
-            provider_npi_dhct_number: (this.state.phone.replace(/\D+/g, "")).slice(0, 5),
+            provider_npi_dhct_number: this.props.fetch_provider_put_data.data.provider_npi_dhct_number,
             dhct_patient_approximate_date_of_last_provider_visit: this.state.lastDateVisited,
             dhct_patient_approximate_date_of_next_provider_visit: this.state.nextVisitDate
         }
@@ -241,12 +241,15 @@ class AddProviderModal extends React.Component {
 
     clickPhysicianType() {
         this.setState({
-            physicianTypeError: false
+            physicianTypeError: false,
+            physicianTypeErrorText: ''
         })
     }
 
     changeEmail(event) {
         this.setState({
+            emailError: false,
+            emailErrorText: '',
             email: event.target.value
         })
     }
@@ -255,30 +258,40 @@ class AddProviderModal extends React.Component {
         const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
         this.setState({
+            faxError: false,
+            faxErrorText: '',
             fax: event.target.value
         })
     }
 
     changeFirstName(event) {
         this.setState({
+            firstNameError: false,
+            firstNameErrorText: '',
             firstName: event.target.value
         })
     }
 
     changeLastName(event) {
         this.setState({
+            lastNameError: false,
+            lastNameErrorText: '',
             lastName: event.target.value
         })
     }
 
     changeLastVisitedDate(event) {
         this.setState({
+            lastVisitedDateError: false,
+            lastVisitedDateErrorText: '',
             lastDateVisited: event.target.value
         })
     }
 
     changeNextVisitDate(event) {
         this.setState({
+            nextVisitDateError: false,
+            nextVisitDateErrorText: '',
             nextVisitDate: event.target.value
         })
     }
@@ -287,18 +300,24 @@ class AddProviderModal extends React.Component {
         const x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
         event.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? `-${x[3]}` : ''}`;
         this.setState({
+            phoneError: false,
+            phoneErrorText: '',
             phone: event.target.value
         })
     }
 
     changePhysicianType(event) {
         this.setState({
+            physicianTypeError: false,
+            physicianTypeErrorText: '',
             physicianType: event.target.value
         })
     }
 
-    changePracticeName(event) {
+    changepracticeName(event) {
         this.setState({
+            practiceNameError: false,
+            practiceNameErrorText: '',
             practiceName: event.target.value
         })
     }
@@ -339,20 +358,20 @@ class AddProviderModal extends React.Component {
                                         }
                                     </div>
                                     <div className="form-group col-md-12">
-                                        <label htmlFor="practicename"><b>Prctice Name</b></label>
-                                        <input type="text" className="form-control" id="practicename" onClick={this.clickPracticeName} onChange={this.changePracticeName} value={this.state.practiceName} />
+                                        <label htmlFor="practicename"><b>Practice Name</b></label>
+                                        <input type="text" className="form-control" id="practicename" onClick={this.clickpracticeName} onChange={this.changepracticeName} value={this.state.practiceName} />
                                         {
                                             this.state.practiceNameError &&
                                             <div className="col-md-4 tabhead" style={{ color: 'red', minWidth: '250px', padding: '0px' }}>{this.state.practiceNameErrorText}</div>
                                         }
                                     </div>
                                     <div className="form-group col-md-12">
-                                        <label htmlFor="physicianstype"><b>Physicians Type</b></label>
+                                        <label htmlFor="physicianstype"><b>Physician Type</b></label>
                                         <select id="physicianstype" className="form-control" onChange={this.changePhysicianType} onClick={this.clickPhysicianType} value={this.state.physicianType}>
-                                            <option value="" selected>Please select a physician type</option>
-                                            <option value="endocrinology" selected>Endocrinology</option>
-                                            <option value="cardiology">Cardiology</option>
-                                            <option value="opthalmology">Opthalmology</option>
+                                            <option value="">Please select a physician type</option>
+                                            <option value="Endocrinology">Endocrinology</option>
+                                            <option value="Cardiology">Cardiology</option>
+                                            <option value="Opthalmology">Opthalmology</option>
                                         </select>
 
                                         {
