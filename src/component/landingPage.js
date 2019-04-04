@@ -321,7 +321,18 @@ class LandingPage extends React.Component {
                           </div>
                           <div className="">
                             {
-                              this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[1] + "-" + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[2] + "-" + this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split("-")[0]
+                              this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit === '1111-11-11' ? '' :
+                                this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                                  "-"
+                                )[1] +
+                                "-" +
+                                this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                                  "-"
+                                )[2] +
+                                "-" +
+                                this.state.providerData.ccm_patient_approximate_date_of_last_provider_visit.split(
+                                  "-"
+                                )[0]
                             }
                           </div>
                         </div>
@@ -525,7 +536,7 @@ class LandingPage extends React.Component {
                               </div>
                               <div className="">
                                 {
-                                  value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[1] + "-" + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[2] + "-" + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[0]
+                                  value.dhct_patient_approximate_date_of_last_provider_visit === '1111-11-11' ? '' : value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[1] + "-" + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[2] + "-" + value.dhct_patient_approximate_date_of_last_provider_visit.split("-")[0]
                                 }
                               </div>
                             </div>

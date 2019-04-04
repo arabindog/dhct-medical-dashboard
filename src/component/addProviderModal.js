@@ -163,13 +163,13 @@ class AddProviderModal extends React.Component {
             })
             validationStatus = false
         }
-        if (this.state.lastDateVisited === '') {
-            this.setState({
-                lastVisitedDateError: true,
-                lastVisitedDateErrorText: 'Last date visited cannot be blank.'
-            })
-            validationStatus = false
-        }
+        // if (this.state.lastDateVisited === '') {
+        //     this.setState({
+        //         lastVisitedDateError: true,
+        //         lastVisitedDateErrorText: 'Last date visited cannot be blank.'
+        //     })
+        //     validationStatus = false
+        // }
         // if (this.state.nextVisitDate === '') {
         //     this.setState({
         //         nextVisitDateError: true,

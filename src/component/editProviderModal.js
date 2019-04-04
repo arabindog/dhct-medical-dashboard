@@ -128,7 +128,7 @@ class EditProviderModal extends React.Component {
                 email: this.props.update_provider_id.dhct_provider_email,
                 fax: this.props.update_provider_id.dhct_provider_fax_number,
                 nextVisitDate: this.props.update_provider_id.dhct_patient_approximate_date_of_next_provider_visit === '1111-11-11' ? '' : this.props.update_provider_id.dhct_patient_approximate_date_of_next_provider_visit,
-                lastDateVisited: this.props.update_provider_id.dhct_patient_approximate_date_of_last_provider_visit,
+                lastDateVisited: this.props.update_provider_id.dhct_patient_approximate_date_of_last_provider_visit === '1111-11-11' ? '' : this.props.update_provider_id.dhct_patient_approximate_date_of_last_provider_visit,
                 physicianType: this.props.update_provider_id.dhct_physician_type,
                 practiceName: this.props.update_provider_id.dhct_provider_practice_name
             })
@@ -188,13 +188,13 @@ class EditProviderModal extends React.Component {
             })
             validationStatus = false
         }
-        if (this.state.lastDateVisited === '') {
-            this.setState({
-                lastVisitedDateError: true,
-                lastVisitedDateErrorText: 'Last date visited cannot be blank.'
-            })
-            validationStatus = false
-        }
+        // if (this.state.lastDateVisited === '') {
+        //     this.setState({
+        //         lastVisitedDateError: true,
+        //         lastVisitedDateErrorText: 'Last date visited cannot be blank.'
+        //     })
+        //     validationStatus = false
+        // }
         // if (this.state.nextVisitDate === '') {
         //     this.setState({
         //         nextVisitDateError: true,
